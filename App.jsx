@@ -20,10 +20,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { fonts } from './src/utils/font';
 import Feather from '@react-native-vector-icons/feather';
+import { useNavigation } from '@react-navigation/native';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   const Stack = createNativeStackNavigator();
+
 
   return (
     <Provider store={store}>
@@ -32,23 +34,29 @@ function App() {
         <Stack.Navigator initialRouteName="AllProducts">
           <Stack.Screen
             name="AllProducts"
-            options={{
+            component={AllProducts}
+            options={({ navigation }) => ({
+              title: 'Discover Your Plant',
               headerStyle: { backgroundColor: '#D1D8BE' },
               headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },
-              headerTitle: 'Discover Your Plant',
-               headerRight: () => (
-                <Feather name="plus" color="#075B5E" size={20} />
+              headerRight: () => (
+                <Feather
+                  name="plus"
+                  color="#075B5E"
+                  size={26}
+                  onPress={() => navigation.navigate('AddNewProduct')}
+                  style={{ marginRight: 16 }}
+                />
               ),
-             
-            }}
-            component={AllProducts}
+            })}
           />
+
           <Stack.Screen
             name="SpecificProduct"
             options={{
               headerStyle: { backgroundColor: '#D1D8BE' },
               headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },
-               headerRight: () => (
+              headerRight: () => (
                 <Feather name="heart" color="#075B5E" size={20} />
               ),
             }}
