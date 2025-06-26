@@ -25,12 +25,12 @@ export const productsApi = createApi({
     }),
 
     updateProduct: builder.mutation({
-      query: ({ id, updateProduct }) => ({
-        url: `/products/${id}`,
+      query: ( product ) => ({
+        url: `/product`,
         method: 'PUT',
 
         headers: { 'Content-Type': 'application/json' },
-        body: updateProduct,
+        body: product,
       }),
       invalidatesTags: ['Product'],
     }),

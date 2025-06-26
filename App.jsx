@@ -37,7 +37,7 @@ function App() {
             component={AllProducts}
             options={({ navigation }) => ({
               title: 'Discover Your Plant',
-              headerStyle: { backgroundColor: '#D1D8BE' },
+             headerStyle: { backgroundColor: '#D1D8BE' },
               headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },
               headerRight: () => (
                 <Feather
@@ -64,7 +64,10 @@ function App() {
           />
           <Stack.Screen name="AddNewProduct" component={AddNewProduct} options={{headerStyle: { backgroundColor: '#D1D8BE' },
               headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },}}/>
-          <Stack.Screen name="UpdateProduct" component={UpdateProduct} />
+          <Stack.Screen name="UpdateProduct" component={UpdateProduct} options={{
+            headerStyle: { backgroundColor: '#D1D8BE' },
+              headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },
+          }} />
           <Stack.Screen name="DeleteProduct" component={DeleteProduct} />
         </Stack.Navigator>
       </NavigationContainer>

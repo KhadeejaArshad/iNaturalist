@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Pressable,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import { useAddNewProductMutation } from '../app/service/dummyData';
@@ -15,7 +16,7 @@ import { Picker } from '@react-native-picker/picker';
 
 import { colors } from '../utils/color/color';
 
-const AddNewProduct = ({navigation}) => {
+const AddNewProduct = ({ navigation }) => {
   const [addNewProduct, { data, isError, isLoading }] =
     useAddNewProductMutation();
   const [form, setForm] = useState({
@@ -24,7 +25,7 @@ const AddNewProduct = ({navigation}) => {
     price: '',
     category: '',
     size: '',
-    image:''
+    image: '',
   });
 
   const handleChange = (key, value) => {
@@ -51,12 +52,19 @@ const AddNewProduct = ({navigation}) => {
         size: form.size,
         category: form.category,
         bio: form.bio,
-        image:form.image,
+        image: form.image,
       };
 
       await addNewProduct(newProductData).unwrap();
       alert('Product added!');
-      setForm({ name: '', bio: '', price: '', category: '', size: '' , image:''});
+      setForm({
+        name: '',
+        bio: '',
+        price: '',
+        category: '',
+        size: '',
+        image: '',
+      });
       navigation.goBack();
     } catch (err) {
       console.error('Cannot add new product:', err);
@@ -73,8 +81,17 @@ const AddNewProduct = ({navigation}) => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Add a plant to your wishList</Text>
+ 
+  
+      <ScrollView contentContainerStyle={styles.container}>
+          <ImageBackground
+  source={{uri:'https://images.pexels.com/photos/5942501/pexels-photo-5942501.jpeg'}}
+  style={styles.bg}
+  resizeMode='cover'
+  >
+   
+     <View style={{padding:20}}>
+       <Text style={styles.title}>Add a plant to your wishList</Text>
 
       <TextInput
         style={styles.input}
@@ -83,7 +100,7 @@ const AddNewProduct = ({navigation}) => {
         value={form.name}
         onChangeText={text => handleChange('name', text)}
       />
-       <TextInput
+      <TextInput
         style={styles.input}
         placeholder="Image Uri"
         placeholderTextColor="#075B5E"
@@ -107,53 +124,58 @@ const AddNewProduct = ({navigation}) => {
         value={form.price}
         onChangeText={text => handleChange('price', text)}
       />
-    <View style={{flexDirection:'row',gap:10}}>
+      <View style={{ flexDirection: 'row', gap: 10 }}>
         <View style={styles.pickerWrapper}>
-        <Picker
-          selectedValue={form.category}
-          onValueChange={value => handleChange('category', value)}
-          style={styles.picker}
-          dropdownIconColor="#075B5E"
-        >
-          <Picker.Item label="Select Category" value="" />
-          <Picker.Item label="Indoor Plants" value="Indoor Plants" />
-          <Picker.Item label="Outdoor Plants" value="Outdoor Plants" />
-          <Picker.Item label="Flowering Plants" value="Flowering Plants" />
-          <Picker.Item label="Succulents" value="Succulents" />
-          <Picker.Item label="Herbs" value="Herbs" />
-          <Picker.Item label="Cacti" value="Cacti" />
-          <Picker.Item label="Medicinal Plants" value="Medicinal Plants" />
-          <Picker.Item
-            label="Air Purifying Plants"
-            value="Air Purifying Plants"
-          />
-        </Picker>
+          <Picker
+            selectedValue={form.category}
+            onValueChange={value => handleChange('category', value)}
+            style={styles.picker}
+            dropdownIconColor="#075B5E"
+          >
+            <Picker.Item label="Select Category" value="" />
+            <Picker.Item label="Indoor Plants" value="Indoor Plants" />
+            <Picker.Item label="Outdoor Plants" value="Outdoor Plants" />
+            <Picker.Item label="Flowering Plants" value="Flowering Plants" />
+            <Picker.Item label="Succulents" value="Succulents" />
+            <Picker.Item label="Herbs" value="Herbs" />
+            <Picker.Item label="Cacti" value="Cacti" />
+            <Picker.Item label="Medicinal Plants" value="Medicinal Plants" />
+            <Picker.Item
+              label="Air Purifying Plants"
+              value="Air Purifying Plants"
+            />
+          </Picker>
+        </View>
+
+        <View style={styles.pickerWrapper}>
+          <Picker
+            selectedValue={form.size}
+            onValueChange={itemValue => handleChange('size', itemValue)}
+            style={styles.picker}
+            dropdownIconColor="#075B5E"
+          >
+            <Picker.Item label="Select Size" value="" />
+            <Picker.Item label="Small" value="Small" />
+            <Picker.Item label="Medium" value="Medium" />
+            <Picker.Item label="Large" value="Large" />
+          </Picker>
+        </View>
       </View>
-
-      <View style={styles.pickerWrapper}>
-        <Picker
-          selectedValue={form.size}
-          onValueChange={itemValue => handleChange('size', itemValue)}
-          style={styles.picker}
-          dropdownIconColor="#075B5E"
-        >
-          <Picker.Item label="Select Size" value="" />
-          <Picker.Item label="Small" value="Small" />
-          <Picker.Item label="Medium" value="Medium" />
-          <Picker.Item label="Large" value="Large" />
-        </Picker>
-      </View>
-    </View>
-    <Pressable style={styles.button} disabled={isLoading} onPress={handleAddProduct}>
-     <Text style={styles.buttonText}>
-      Add A PLant
-      </Text>
-
-    </Pressable>
-
+      <Pressable
+        style={styles.button}
+        disabled={isLoading}
+        onPress={handleAddProduct}
+      >
+        <Text style={styles.buttonText}>Add A PLant</Text>
+      </Pressable>
+     </View>
       
-      <Text>{data?.name}</Text>
+</ImageBackground>
+     
+      
     </ScrollView>
+  
+  
   );
 };
 
@@ -161,8 +183,8 @@ export default AddNewProduct;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: 'white',
+ 
+    
     flexGrow: 1,
   },
   title: {
@@ -173,13 +195,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   input: {
-    backgroundColor: '#E7EFC7',
+    backgroundColor: 'white',
     paddingHorizontal: 15,
     paddingVertical: 12,
     borderRadius: 8,
     marginBottom: 15,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    borderColor: colors.dark,
+    borderWidth: 2,
     fontSize: 16,
   },
   textArea: {
@@ -187,34 +209,35 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   pickerWrapper: {
-    borderColor: '#ccc',
-    borderWidth: 1,
+    borderColor: colors.dark,
+    borderWidth: 2,
     borderRadius: 8,
     marginBottom: 15,
     overflow: 'hidden',
-    backgroundColor: '#E7EFC7',
-    flex:1
+    backgroundColor: 'white',
+    flex: 1,
   },
 
   picker: {
-    
     color: '#075B5E',
   },
-  button:{
-    backgroundColor:colors.dark,
-    width:327,
-    height:60,
-    borderRadius:12,
-    marginHorizontal:18,
-    marginVertical:10
-   
+  button: {
+    backgroundColor: colors.dark,
+    width: 327,
+    height: 60,
+    borderRadius: 12,
+    marginHorizontal: 18,
+    marginVertical: 10,
   },
-  buttonText:{
-    color:'white',
-    textAlign:'center',
-    fontFamily:fonts.bold,
-    fontSize:20,
-    marginVertical:15
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontFamily: fonts.bold,
+    fontSize: 20,
+    marginVertical: 15,
+  },
+  bg:{
+     flex: 1,
+ 
   }
-
 });

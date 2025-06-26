@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, ImageBackground } from 'react-native';
 import React from 'react';
 import { useGetAllProductQuery, useDeleteProductMutation } from '../app/service/dummyData';
 import Feather from '@react-native-vector-icons/feather';
 import { fonts } from '../utils/font';
+import { colors } from '../utils/color/color';
 
 const AllProducts = ({ navigation }) => {
   const { data, isError, isLoading } = useGetAllProductQuery();
@@ -19,7 +20,7 @@ const AllProducts = ({ navigation }) => {
   const handleDeleteProduct = async (id) => {
     try {
       await deleteProduct(id).unwrap();
-      // Optionally show a toast/snackbar
+      
     } catch (err) {
       console.error('Failed to delete product:', err);
     }
@@ -27,6 +28,10 @@ const AllProducts = ({ navigation }) => {
 
   return (
     <View style={styles.root}>
+      <ImageBackground  source={{
+          uri: 'https://images.pexels.com/photos/5942501/pexels-photo-5942501.jpeg',
+        }}
+      style={styles.bg} resizeMode='cover'>
       {data?.products.map((p) => (
         <Pressable
           key={p._id}
@@ -42,7 +47,7 @@ const AllProducts = ({ navigation }) => {
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <Text style={styles.productPrice}>${p.price.toFixed(2)}</Text>
               <View style={{ flexDirection: 'row', gap: 12 }}>
-                <Feather name="edit" color="#075B5E" size={20} />
+                <Feather name="edit" color="#075B5E" size={20} onPress={()=>navigation.navigate('UpdateProduct',{product:p})}/>
                 <Feather
                   name="trash-2"
                   color="#075B5E"
@@ -54,6 +59,7 @@ const AllProducts = ({ navigation }) => {
           </View>
         </Pressable>
       ))}
+      </ImageBackground>
     </View>
   );
 };
@@ -67,10 +73,12 @@ const styles = StyleSheet.create({
   productContainer: {
     marginVertical: 10,
     padding: 10,
-    backgroundColor: '#E7EFC7',
+    backgroundColor: 'white',
     borderRadius: 8,
     flexDirection: 'row',
     marginHorizontal: 10,
+    borderWidth:2,
+    borderColor:colors.dark
   },
   productTitle: {
     fontSize: 18,
@@ -85,6 +93,8 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
+    borderWidth:2,
+    borderColor:colors.dark
   },
   productPrice: {
     marginTop: 8,
@@ -94,5 +104,8 @@ const styles = StyleSheet.create({
   },
   productdesc: {
     marginHorizontal: 8,
+  },
+    bg: {
+    flex: 1,
   },
 });

@@ -5,11 +5,13 @@ import {
   Image,
   ScrollView,
   Pressable,
+  ImageBackground,
 } from 'react-native';
 import { useGetProductByIdQuery } from '../app/service/dummyData';
 import React from 'react';
 import { useLayoutEffect } from 'react';
 import { fonts } from '../utils/font';
+import { colors } from '../utils/color/color';
 
 const SpecificProduct = ({ route, navigation }) => {
   const id = route?.params?.id;
@@ -28,11 +30,18 @@ const SpecificProduct = ({ route, navigation }) => {
   }
 
   return (
+     <ImageBackground   source={{
+          uri: 'https://images.pexels.com/photos/5942501/pexels-photo-5942501.jpeg',
+        }}
+        style={styles.bg}
+        resizeMode="cover">
     <ScrollView
-      style={styles.root}
+      
       contentContainerStyle={styles.scrollContent}
     >
-      <View style={styles.centered}>
+     
+       
+       <View style={styles.centered}>
         <View style={styles.imagecontainer}>
           <Image
             style={styles.image}
@@ -70,20 +79,20 @@ const SpecificProduct = ({ route, navigation }) => {
           </View>
         </View>
       </View>
+      </ScrollView>
+     </ImageBackground>
+
+      
      
-    </ScrollView>
+     
+    
   );
 };
 
 export default SpecificProduct;
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  scrollContent: {
-    paddingBottom: 30,
-  },
+ 
+ 
   centered: {
     alignItems: 'center',
   },
@@ -91,6 +100,7 @@ const styles = StyleSheet.create({
     width: 420,
     height: 350,
     marginTop: 10,
+   
   },
   image: {
     width: '100%',
@@ -151,5 +161,8 @@ const styles = StyleSheet.create({
   },
   button:{
     backgroundColor:'#2D5523'
+  },
+  bg:{
+    flex:1
   }
 });
