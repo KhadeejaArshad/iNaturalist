@@ -33,7 +33,7 @@ const AllProducts = ({ navigation }) => {
           style={styles.productContainer}
           onPress={() => navigation.navigate('SpecificProduct', { id: p._id })}
         >
-          <Image style={styles.image} source={{ uri: p.image }} />
+          <Image style={styles.image} source={{ uri: p.image }} resizeMode="contain" />
           <View style={styles.productdesc}>
             <Text style={styles.productTitle}>{p.name}</Text>
             <Text style={styles.productDescription} numberOfLines={2}>

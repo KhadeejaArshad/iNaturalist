@@ -62,7 +62,8 @@ function App() {
             }}
             component={SpecificProduct}
           />
-          <Stack.Screen name="AddNewProduct" component={AddNewProduct} />
+          <Stack.Screen name="AddNewProduct" component={AddNewProduct} options={{headerStyle: { backgroundColor: '#D1D8BE' },
+              headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },}}/>
           <Stack.Screen name="UpdateProduct" component={UpdateProduct} />
           <Stack.Screen name="DeleteProduct" component={DeleteProduct} />
         </Stack.Navigator>
