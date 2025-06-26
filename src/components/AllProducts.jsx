@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, ImageBackground,SafeAreaView,ActivityIndicator } from 'react-native';
 import React, { useEffect } from 'react';
 import { useGetAllProductQuery, useDeleteProductMutation } from '../app/service/dummyData';
 import Feather from '@react-native-vector-icons/feather';
@@ -30,7 +30,11 @@ const AllProducts = ({ navigation }) => {
 
   }
   if(status===STATUSES.LOADING){
-    return <Text>Loading...</Text>;
+     <SafeAreaView style={{ flex: 1,
+        justifyContent: 'center',}}>
+          <ActivityIndicator />
+          <ActivityIndicator size="large" color="#00ff00" />
+        </SafeAreaView>
 
   }
 

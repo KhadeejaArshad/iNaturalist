@@ -8,6 +8,8 @@ import {
   Pressable,
   ImageBackground,
   Image,
+  SafeAreaView,
+  ActivityIndicator
 } from 'react-native';
 import React from 'react';
 import { useAddNewProductMutation } from '../app/service/dummyData';
@@ -130,7 +132,14 @@ const AddNewProduct = ({ navigation }) => {
   }
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+ 
+    <SafeAreaView style={{ flex: 1,
+    justifyContent: 'center',}}>
+      <ActivityIndicator />
+      <ActivityIndicator size="large" color="#00ff00" />
+    </SafeAreaView>
+
+    
   }
 
   return (

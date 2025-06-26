@@ -6,6 +6,8 @@ import {
   ScrollView,
   Pressable,
   ImageBackground,
+  SafeAreaView,
+  ActivityIndicator
 } from 'react-native';
 import { useGetProductByIdQuery } from '../app/service/dummyData';
 import React from 'react';
@@ -26,7 +28,11 @@ const SpecificProduct = ({ route, navigation }) => {
     return <Text>OhhNo we got an error!!!!!</Text>;
   }
   if (isLoading) {
-    return <Text>Loading......</Text>;
+        <SafeAreaView style={{ flex: 1,
+            justifyContent: 'center',}}>
+              <ActivityIndicator />
+              <ActivityIndicator size="large" color="#00ff00" />
+            </SafeAreaView>
   }
 
   return (
