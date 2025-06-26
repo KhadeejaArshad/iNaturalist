@@ -7,7 +7,7 @@ import productSlice from './service/productSlice'
 export const store=configureStore({
     reducer:{
         [productsApi.reducerPath]:productsApi.reducer,
-        products:productSlice
+        product:productSlice
     },
     middleware:(getDefaultMiddleware) =>
         getDefaultMiddleware().concat(productsApi.middleware)

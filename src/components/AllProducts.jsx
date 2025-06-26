@@ -11,7 +11,7 @@ import { fetchProduct, STATUSES } from '../app/service/productSlice';
 const AllProducts = ({ navigation }) => {
   // const { data, isError, isLoading } = useGetAllProductQuery();
   const dispatch=useDispatch();
-  const { data, status, error } = useSelector(state => state.products);
+  const { data, status, error } = useSelector(state => state.product);
 
   const [deleteProduct, { isLoading: deleting }] = useDeleteProductMutation();
   useEffect(()=>{
@@ -37,6 +37,7 @@ const AllProducts = ({ navigation }) => {
   const handleDeleteProduct = async (id) => {
     try {
       await deleteProduct(id).unwrap();
+      dispatch(fetchProduct())
       
     } catch (err) {
       console.error('Failed to delete product:', err);
@@ -102,6 +103,7 @@ const AllProducts = ({ navigation }) => {
           keyExtractor={item => item._id}
           renderItem={renderProductItem}
           contentContainerStyle={{ paddingBottom: 20 }}
+          scrollEnabled={true}
         />
       </ImageBackground>
     </View>

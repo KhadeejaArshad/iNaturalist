@@ -15,13 +15,18 @@ import { fonts } from '../utils/font';
 import { Picker } from '@react-native-picker/picker';
 
 import { colors } from '../utils/color/color';
+import { useDispatch } from 'react-redux';
+import { fetchProduct } from '../app/service/productSlice';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { Image } from 'react-native';
 
-const UpdateProduct = ({ route,navigation }) => {
+const UpdateProduct = ({ route, navigation }) => {
+  const dispatch = useDispatch();
   const [updateProduct, { data, isError, isLoading }] =
     useUpdateProductMutation();
   const product = route?.params?.product;
   console.log(product);
-  
+
   const [form, setForm] = useState({
     name: product.name,
     bio: product.bio,
@@ -57,9 +62,9 @@ const UpdateProduct = ({ route,navigation }) => {
         image: form.image,
       };
 
-      const res=await updateProduct(updatedProductData).unwrap();
-      console.log(res);
-      
+      const res = await updateProduct(updatedProductData).unwrap();
+      dispatch(fetchProduct());
+
       setForm({
         name: form.name,
         price: parseFloat(form.price),
@@ -72,7 +77,7 @@ const UpdateProduct = ({ route,navigation }) => {
       navigation.goBack();
     } catch (err) {
       console.error('Cannot update product:', err);
-       alert('Failed to add product');
+      alert('Failed to add product');
     }
   };
 
@@ -83,7 +88,24 @@ const UpdateProduct = ({ route,navigation }) => {
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
-
+  const handleImagePick = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        quality: 0.7,
+      },
+      response => {
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        } else if (response.errorMessage) {
+          console.log('ImagePicker Error: ', response.errorMessage);
+        } else if (response.assets && response.assets.length > 0) {
+          const selectedImage = response.assets[0].uri;
+          setForm({ ...form, image: selectedImage });
+        }
+      },
+    );
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ImageBackground
@@ -95,6 +117,24 @@ const UpdateProduct = ({ route,navigation }) => {
       >
         <View style={{ padding: 20 }}>
           <Text style={styles.title}>Want to Change Something?</Text>
+           <Pressable
+            onPress={handleImagePick}
+            style={{ alignItems: 'center', marginVertical: 10 }}
+          >
+            {form.image ? (
+              <Image
+                source={{ uri: form.image }}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 8,
+                  marginBottom: 10,
+                }}
+              />
+            ) : (
+              <Text style={styles.buttonText}>Pick an Image</Text>
+            )}
+          </Pressable>
 
           <TextInput
             style={styles.input}
@@ -103,13 +143,7 @@ const UpdateProduct = ({ route,navigation }) => {
             value={form.name}
             onChangeText={text => handleChange('name', text)}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Image Uri"
-            placeholderTextColor="#075B5E"
-            value={form.image}
-            onChangeText={text => handleChange('image', text)}
-          />
+         
           <TextInput
             style={[styles.input, styles.textArea]}
             placeholder="Description"
