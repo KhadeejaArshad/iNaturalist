@@ -113,14 +113,14 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   name: {
-    color: '#075B5E',
+    color: colors.dark,
     fontWeight: 'bold',
     fontSize: 28,
     marginTop: 10,
     marginHorizontal: 16,
   },
   detailSection: {
-    backgroundColor: '#D1D8BE',
+    backgroundColor: colors.header,
 
     borderRadius: 16,
     margin: 24,
@@ -151,22 +151,22 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 16,
     marginBottom: 8,
-    color: '#075B5E',
+    color: colors.dark,
     fontFamily: fonts.bold,
   },
   productDescription: {
-    color: '#555',
+    color: colors.greyish,
     fontFamily: fonts.regular,
   },
   header: {
     fontSize: 22,
-    color: '#075B5E',
+    color: colors.dark,
     marginTop: 10,
 
     fontFamily: fonts.bold,
   },
   button:{
-    backgroundColor:'#2D5523'
+    backgroundColor:colors.buttonbg
   },
   bg:{
     flex:1

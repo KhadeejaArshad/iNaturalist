@@ -14,18 +14,17 @@ import SpecificProduct from './src/components/SpecificProduct';
 import AddNewProduct from './src/components/AddNewProduct';
 
 import UpdateProduct from './src/components/updateProduct';
-import DeleteProduct from './src/components/DeleteProduct';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useState } from 'react';
+
 import { fonts } from './src/utils/font';
 import Feather from '@react-native-vector-icons/feather';
-import { useNavigation } from '@react-navigation/native';
+import { colors } from './src/utils/color/color';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   const Stack = createNativeStackNavigator();
-
 
   return (
     <Provider store={store}>
@@ -37,12 +36,12 @@ function App() {
             component={AllProducts}
             options={({ navigation }) => ({
               title: 'Discover Your Plant',
-             headerStyle: { backgroundColor: '#D1D8BE' },
-              headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },
+              headerStyle: { backgroundColor:colors.header },
+              headerTitleStyle: { fontFamily: fonts.bold, color: colors.dark },
               headerRight: () => (
                 <Feather
                   name="plus"
-                  color="#075B5E"
+                  color={colors.dark}
                   size={26}
                   onPress={() => navigation.navigate('AddNewProduct')}
                   style={{ marginRight: 16 }}
@@ -54,21 +53,30 @@ function App() {
           <Stack.Screen
             name="SpecificProduct"
             options={{
-              headerStyle: { backgroundColor: '#D1D8BE' },
-              headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },
+              headerStyle: { backgroundColor: colors.header },
+              headerTitleStyle: { fontFamily: fonts.bold, color: colors.dark },
               headerRight: () => (
-                <Feather name="heart" color="#075B5E" size={20} />
+                <Feather name="heart" color={colors.dark} size={20} />
               ),
             }}
             component={SpecificProduct}
           />
-          <Stack.Screen name="AddNewProduct" component={AddNewProduct} options={{headerStyle: { backgroundColor: '#D1D8BE' },
-              headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },}}/>
-          <Stack.Screen name="UpdateProduct" component={UpdateProduct} options={{
-            headerStyle: { backgroundColor: '#D1D8BE' },
-              headerTitleStyle: { fontFamily: fonts.bold, color: '#075B5E' },
-          }} />
-          <Stack.Screen name="DeleteProduct" component={DeleteProduct} />
+          <Stack.Screen
+            name="AddNewProduct"
+            component={AddNewProduct}
+            options={{
+              headerStyle: { backgroundColor: colors.header },
+              headerTitleStyle: { fontFamily: fonts.bold, color: colors.dark },
+            }}
+          />
+          <Stack.Screen
+            name="UpdateProduct"
+            component={UpdateProduct}
+            options={{
+              headerStyle: { backgroundColor: colors.header },
+              headerTitleStyle: { fontFamily: fonts.bold, color: colors.dark },
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
@@ -78,7 +86,7 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#AEC8A4',
+  
   },
 });
 

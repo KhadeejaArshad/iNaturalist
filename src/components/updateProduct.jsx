@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
     fontFamily: fonts.bold,
-    color: '#075B5E',
+    color: colors.dark,
     textAlign: 'center',
   },
   input: {
