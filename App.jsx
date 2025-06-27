@@ -9,7 +9,7 @@ import { NewAppScreen } from '@react-native/new-app-screen';
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import { store } from './src/app/store';
 import AllProducts from './src/components/AllProducts';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import SpecificProduct from './src/components/SpecificProduct';
 import AddNewProduct from './src/components/AddNewProduct';
 
@@ -22,17 +22,26 @@ import { fonts } from './src/utils/font';
 import Feather from '@react-native-vector-icons/feather';
 import { colors } from './src/utils/color/color';
 import Login from './src/components/Login';
+import SignUp from './src/screen/SignUp';
+import LoginScreen from './src/screen/LoginScreen';
+import { logout } from './src/app/service/authSlice';
+ const Stack = createNativeStackNavigator();
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-  const Stack = createNativeStackNavigator();
+const AuthStack=()=>{
+ return(
+   <Stack.Navigator initialRouteName='Login'>
+    <Stack.Screen name="Login" component={Login}options={{headerShown:false}}/>
+    <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:false}}/>
+    <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}}/>
+  </Stack.Navigator>
+ )
 
-  return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen
+}
+const AuthenticatedStack=()=>{
+   const dispatch=useDispatch();
+ return(
+   <Stack.Navigator>
+              <Stack.Screen
             name="AllProducts"
             component={AllProducts}
             options={({ navigation }) => ({
@@ -40,18 +49,25 @@ function App() {
               headerStyle: { backgroundColor:colors.header },
               headerTitleStyle: { fontFamily: fonts.bold, color: colors.dark },
               headerRight: () => (
-                <Feather
+              <View style={{flexDirection:'row'}}>
+                  <Feather
                   name="plus"
                   color={colors.dark}
                   size={26}
                   onPress={() => navigation.navigate('AddNewProduct')}
                   style={{ marginRight: 16 }}
                 />
+                <Feather name='log-out'
+                color={colors.dark}
+                  size={26}
+                  onPress={()=>dispatch(logout())}
+                  style={{ marginRight: 16 }}
+                />
+              </View>
               ),
             })}
           />
-
-          <Stack.Screen
+                 <Stack.Screen
             name="SpecificProduct"
             options={{
               headerStyle: { backgroundColor: colors.header },
@@ -77,15 +93,33 @@ function App() {
               headerStyle: { backgroundColor: colors.header },
               headerTitleStyle: { fontFamily: fonts.bold, color: colors.dark },
             }}
-          />
-          <Stack.Screen name="Login" component={Login} options={{
-            headerShown:false
-          }}/>
-        </Stack.Navigator>
+            />
+  </Stack.Navigator>
+ )
+
+}
+
+function App() {
+  const isDarkMode = useColorScheme() === 'dark';
+  
+ 
+
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+           <RootNavigator />
       </NavigationContainer>
     </Provider>
   );
 }
+
+
+function RootNavigator() {
+  const loggedIn = useSelector(state => !!state.auth.token);
+  return loggedIn ? <AuthenticatedStack /> : <AuthStack />;
+}
+
 
 const styles = StyleSheet.create({
   container: {

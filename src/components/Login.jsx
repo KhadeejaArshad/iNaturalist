@@ -30,13 +30,13 @@ const Login = ({navigation}) => {
          </View>
 
           <View >
-            <Pressable style={styles.button} onPress={()=>navigation.navigate('AllProducts')}>
+            <Pressable style={styles.button} onPress={()=>navigation.navigate('LoginScreen')}>
             <Text weight="bold" size={20} alignment="center" color="white">
               Login
             </Text>
           </Pressable>
 
-          <Pressable style={styles.button2}>
+          <Pressable style={styles.button2}  onPress={()=>navigation.navigate('SignUp')}>
             <Text weight="bold" size={20} alignment="center" >
               Sign Up
             </Text>
