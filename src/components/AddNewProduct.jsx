@@ -1,6 +1,6 @@
 import {
   View,
-  Text,
+
   Button,
   TextInput,
   ScrollView,
@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { fonts } from '../utils/font';
 import { Picker } from '@react-native-picker/picker';
 import { launchImageLibrary } from 'react-native-image-picker';
+import Text from '../UI/SpText';
 
 import { colors } from '../utils/color/color';
 import { useDispatch } from 'react-redux';
@@ -128,7 +129,7 @@ const AddNewProduct = ({ navigation }) => {
   };
 
   if (isError) {
-    return <Text>Oh no! We got an error!</Text>;
+    return <Text weight={bold} size={16}>OH NO WE GOT AN ERROR</Text>;
   }
 
   if (isLoading) {
@@ -152,7 +153,7 @@ const AddNewProduct = ({ navigation }) => {
         resizeMode="cover"
       >
         <View style={{ padding: 20 }}>
-          <Text style={styles.title}>Add a plant to your wishList</Text>
+          <Text style={styles.title} weight='bold' size={24} color={colors.dark} alignment='center' marginV={4}>Add a plant to your wishList</Text>
            <Pressable onPress={handleImagePick} style={styles.imagePickerButton}>
             {form.image ? (
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -167,7 +168,7 @@ const AddNewProduct = ({ navigation }) => {
                 />
               </View>
             ) : (
-              <Text style={styles.buttonText}>Pick an Image</Text>
+              <Text weight='bold' size={20} alignment='center' marginV={15}>Pick an Image</Text>
             )}
           </Pressable>
 
@@ -245,7 +246,7 @@ const AddNewProduct = ({ navigation }) => {
             disabled={isLoading}
             onPress={handleAddProduct}
           >
-            <Text style={styles.buttonText}>Add A PLant</Text>
+            <Text weight='bold' size={20} alignment='center' marginV={15}>Add A PLant</Text>
           </Pressable>
         </View>
       </ImageBackground>
@@ -259,13 +260,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    fontFamily: fonts.bold,
-    color: '#075B5E',
-    textAlign: 'center',
-  },
+
   input: {
     backgroundColor: 'white',
     paddingHorizontal: 15,
@@ -301,13 +296,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
     marginVertical: 10,
   },
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
-    fontFamily: fonts.bold,
-    fontSize: 20,
-    marginVertical: 15,
-  },
+
   bg: {
     flex: 1,
   },
