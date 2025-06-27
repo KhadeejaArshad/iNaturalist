@@ -21,7 +21,7 @@ import Text from '../UI/SpText';
 
 import { colors } from '../utils/color/color';
 import { useDispatch } from 'react-redux';
-import { fetchProduct } from '../app/service/productSlice';
+
 
 const AddNewProduct = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -110,7 +110,7 @@ const AddNewProduct = ({ navigation }) => {
       };
 
       await addNewProduct(newProductData).unwrap();
-      dispatch(fetchProduct());
+      // dispatch(fetchProduct());
 
       alert('Product added!');
       setForm({
@@ -296,7 +296,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
     marginVertical: 10,
   },
-
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontFamily: fonts.bold,
+    fontSize: 20,
+    marginVertical: 15,
+  },
   bg: {
     flex: 1,
   },

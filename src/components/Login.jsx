@@ -5,7 +5,7 @@ import Text from '../UI/SpText';
 import LinearGradient from 'react-native-linear-gradient';
 
 
-const Login = () => {
+const Login = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -30,7 +30,7 @@ const Login = () => {
          </View>
 
           <View >
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={()=>navigation.navigate('AllProducts')}>
             <Text weight="bold" size={20} alignment="center" color="white">
               Login
             </Text>

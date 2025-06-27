@@ -9,14 +9,14 @@ import { fetchProduct, STATUSES } from '../app/service/productSlice';
  import { FlatList } from 'react-native';
 
 const AllProducts = ({ navigation }) => {
-  // const { data, isError, isLoading } = useGetAllProductQuery();
+  const {} = useGetAllProductQuery();
   const dispatch=useDispatch();
-  const { data, status, error } = useSelector(state => state.product);
+  const { data:products, status } = useSelector(state => state.product);
 
   const [deleteProduct, { isLoading: deleting }] = useDeleteProductMutation();
-  useEffect(()=>{
-    dispatch(fetchProduct());
-  },[])
+  // useEffect(()=>{
+  //   dispatch(fetchProduct());
+  // },[])
 
   // if (isError) {
   //   return <Text>Oh no! We got an error!</Text>;
@@ -41,7 +41,7 @@ const AllProducts = ({ navigation }) => {
   const handleDeleteProduct = async (id) => {
     try {
       await deleteProduct(id).unwrap();
-      dispatch(fetchProduct())
+      // dispatch(fetchProduct())
       
     } catch (err) {
       console.error('Failed to delete product:', err);
@@ -103,7 +103,7 @@ const AllProducts = ({ navigation }) => {
         resizeMode="cover"
       >
         <FlatList
-          data={data?.products}
+          data={products}
           keyExtractor={item => item._id}
           renderItem={renderProductItem}
           contentContainerStyle={{ paddingBottom: 20 }}
