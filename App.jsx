@@ -21,6 +21,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { fonts } from './src/utils/font';
 import Feather from '@react-native-vector-icons/feather';
 import { colors } from './src/utils/color/color';
+import Login from './src/components/Login';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -30,7 +31,7 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <Stack.Navigator initialRouteName="AllProducts">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="AllProducts"
             component={AllProducts}
@@ -77,6 +78,9 @@ function App() {
               headerTitleStyle: { fontFamily: fonts.bold, color: colors.dark },
             }}
           />
+          <Stack.Screen name="Login" component={Login} options={{
+            headerShown:false
+          }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
