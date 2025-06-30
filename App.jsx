@@ -25,6 +25,8 @@ import Login from './src/components/Login';
 import SignUp from './src/screen/SignUp';
 import LoginScreen from './src/screen/LoginScreen';
 import { logout } from './src/app/service/authSlice';
+import Guest from './src/screen/Guest';
+import Detail from './src/screen/Detail';
  const Stack = createNativeStackNavigator();
 
 const AuthStack=()=>{
@@ -33,6 +35,30 @@ const AuthStack=()=>{
     <Stack.Screen name="Login" component={Login}options={{headerShown:false}}/>
     <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:false}}/>
     <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}}/>
+    <Stack.Screen name='Guest' component={Guest} options={{headerShown:false}}/>
+    <Stack.Screen name='Details' component={Detail} options={({ navigation }) => ({
+        headerLeft:()=>(
+         <Feather
+              name="chevron-left"
+              color="black"
+              size={24}
+              onPress={()=>navigation.goBack()}
+             
+            />
+
+      ),
+      headerRight:()=>(
+         <Feather
+              name="shopping-cart"
+              color="black"
+              size={24}
+             
+            />
+
+      )
+       })}
+        
+    />
   </Stack.Navigator>
  )
 

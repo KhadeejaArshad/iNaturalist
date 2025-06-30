@@ -42,7 +42,7 @@ const Login = ({navigation}) => {
             </Text>
           </Pressable>
 
-          <Pressable>
+          <Pressable onPress={()=>navigation.navigate('Guest')}>
             <Text size={20} alignment="center" >
               Guest
             </Text>
