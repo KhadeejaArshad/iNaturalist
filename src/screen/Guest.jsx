@@ -9,7 +9,7 @@ import { images } from '../utils/Images/images';
 
 const Guest = () => {
   return (
-    <ScrollView contentContainerStyle={{ paddingBottom: 250 }}>
+    <ScrollView contentContainerStyle={{ paddingBottom: 150 }}>
       <Header />
       <View style={styles.root}>
         <Text size={24} color="black" marginH={16} marginV={20}>
@@ -23,7 +23,7 @@ const Guest = () => {
         </Text>
         <List />
       </View>
-        <Text size={24} color="black" marginH={16}>
+        <Text size={24} color="black" marginH={16} marginV={12}>
     Planta Care Kit (new)
   </Text>
     <View style={{ marginHorizontal: 14, width: 384, height: 134, backgroundColor: '#f9f9f9', borderRadius: 8 }}>

@@ -28,6 +28,7 @@ import { logout } from './src/app/service/authSlice';
 import Guest from './src/screen/Guest';
 import Detail from './src/screen/Detail';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Search from './src/screen/Search';
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -72,10 +73,12 @@ const BottomTabNavigation = () => {
         }}
       />
       <BottomTab.Screen
-        name="search"
-        component={Guest}
+        name="SEARCH"
+        component={Search}
         options={{
-          headerShown: false,
+            headerTitleAlign: 'center',
+             headerShadowVisible: false,
+        
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: 'center' ,marginTop:4}}>
               <Feather name="search" color={color} size={size} />
@@ -91,6 +94,9 @@ const BottomTabNavigation = () => {
                 />
               )}
             </View>
+          ),
+            headerLeft: () => (
+            <Feather name="chevron-left" color="black" size={24} />
           ),
         }}
       />
