@@ -27,7 +27,122 @@ import LoginScreen from './src/screen/LoginScreen';
 import { logout } from './src/app/service/authSlice';
 import Guest from './src/screen/Guest';
 import Detail from './src/screen/Detail';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Stack = createNativeStackNavigator();
+const BottomTab = createBottomTabNavigator();
+
+const BottomTabNavigation = () => {
+  return (
+    <BottomTab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: 'white',
+          height: 100,
+          width: 415,
+          // elevation: 10,
+          position: 'absolute',
+        },
+        tabBarActiveTintColor: '#007537',
+        tabBarInactiveTintColor: 'black',
+      }}
+    >
+      <BottomTab.Screen
+        name="home"
+        component={Guest}
+        options={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarIcon: ({ color, size, focused }) => (
+            <View style={{ alignItems: 'center',marginTop:4 }}>
+              <Feather name="home" color={color} size={size} />
+              {focused && (
+                <View
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: 3,
+                    backgroundColor: '#007537',
+                    marginTop: 4,
+                  }}
+                />
+              )}
+            </View>
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="search"
+        component={Guest}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size, focused }) => (
+            <View style={{ alignItems: 'center' ,marginTop:4}}>
+              <Feather name="search" color={color} size={size} />
+              {focused && (
+                <View
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: 3,
+                    backgroundColor: '#007537',
+                    marginTop: 4,
+                  }}
+                />
+              )}
+            </View>
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="notification"
+        component={Guest}
+        options={{
+          headerShown: false,
+             tabBarIcon: ({ color, size, focused }) => (
+            <View style={{ alignItems: 'center' ,marginTop:4}}>
+              <Feather name="bell" color={color} size={size} />
+              {focused && (
+                <View
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: 3,
+                    backgroundColor: '#007537',
+                    marginTop: 4,
+                  }}
+                />
+              )}
+            </View>
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="profile"
+        component={Guest}
+        options={{
+          headerShown: false,
+            tabBarIcon: ({ color, size, focused }) => (
+            <View style={{ alignItems: 'center',marginTop:4}}>
+              <Feather name="user" color={color} size={size} />
+              {focused && (
+                <View
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: 3,
+                    backgroundColor: '#007537',
+                    marginTop: 4,
+                  }}
+                />
+              )}
+            </View>
+          ),
+        }}
+      />
+    </BottomTab.Navigator>
+  );
+};
 
 const AuthStack = () => {
   return (
@@ -49,7 +164,7 @@ const AuthStack = () => {
       />
       <Stack.Screen
         name="Guest"
-        component={Guest}
+        component={BottomTabNavigation}
         options={{ headerShown: false }}
       />
       <Stack.Screen
