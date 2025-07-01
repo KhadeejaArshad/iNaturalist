@@ -96,7 +96,9 @@ const BottomTabNavigation = () => {
             </View>
           ),
             headerLeft: () => (
-            <Feather name="chevron-left" color="black" size={24} />
+            <View style={{marginHorizontal:18}}>
+              <Feather name="chevron-left" color="black" size={24} />
+            </View>
           ),
         }}
       />
