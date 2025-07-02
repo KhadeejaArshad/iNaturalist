@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   button3: {
     justifyContent: 'center',
-    // backgroundColor:'red',
+  
     width:'90%',
     
     marginVertical: verticalScale(10),

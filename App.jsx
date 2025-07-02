@@ -29,10 +29,11 @@ import Guest from './src/screen/Guest';
 import Detail from './src/screen/Detail';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Search from './src/screen/Search';
+import notification from './src/screen/notification';
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
-const BottomTabNavigation = () => {
+const BottomTabNavigation = ({ navigation }) => {
   return (
     <BottomTab.Navigator
       screenOptions={{
@@ -55,7 +56,7 @@ const BottomTabNavigation = () => {
           tabBarShowLabel: false,
           headerShown: false,
           tabBarIcon: ({ color, size, focused }) => (
-            <View style={{ alignItems: 'center',marginTop:4 }}>
+            <View style={{ alignItems: 'center', marginTop: 4 }}>
               <Feather name="home" color={color} size={size} />
               {focused && (
                 <View
@@ -76,11 +77,11 @@ const BottomTabNavigation = () => {
         name="SEARCH"
         component={Search}
         options={{
-            headerTitleAlign: 'center',
-             headerShadowVisible: false,
-        
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+
           tabBarIcon: ({ color, size, focused }) => (
-            <View style={{ alignItems: 'center' ,marginTop:4}}>
+            <View style={{ alignItems: 'center', marginTop: 4 }}>
               <Feather name="search" color={color} size={size} />
               {focused && (
                 <View
@@ -95,20 +96,32 @@ const BottomTabNavigation = () => {
               )}
             </View>
           ),
-            headerLeft: () => (
-            <View style={{marginHorizontal:18}}>
-              <Feather name="chevron-left" color="black" size={24} />
+          headerLeft: () => (
+            <View style={{ marginHorizontal: 18 }}>
+              <Feather
+                name="chevron-left"
+                color="black"
+                size={24}
+                onPress={() =>
+                  navigation.navigate('Guest', {
+                    screen: 'home',
+                  })
+                }
+              />
             </View>
           ),
         }}
       />
       <BottomTab.Screen
         name="notification"
-        component={Guest}
+        component={notification}
         options={{
-          headerShown: false,
-             tabBarIcon: ({ color, size, focused }) => (
-            <View style={{ alignItems: 'center' ,marginTop:4}}>
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+          headerTitle:'NOTIFICATION',
+
+          tabBarIcon: ({ color, size, focused }) => (
+            <View style={{ alignItems: 'center', marginTop: 4 }}>
               <Feather name="bell" color={color} size={size} />
               {focused && (
                 <View
@@ -123,6 +136,20 @@ const BottomTabNavigation = () => {
               )}
             </View>
           ),
+            headerLeft: () => (
+            <View style={{ marginHorizontal: 18 }}>
+              <Feather
+                name="chevron-left"
+                color="black"
+                size={24}
+                onPress={() =>
+                  navigation.navigate('Guest', {
+                    screen: 'home',
+                  })
+                }
+              />
+            </View>
+          ),
         }}
       />
       <BottomTab.Screen
@@ -130,8 +157,8 @@ const BottomTabNavigation = () => {
         component={Guest}
         options={{
           headerShown: false,
-            tabBarIcon: ({ color, size, focused }) => (
-            <View style={{ alignItems: 'center',marginTop:4}}>
+          tabBarIcon: ({ color, size, focused }) => (
+            <View style={{ alignItems: 'center', marginTop: 4 }}>
               <Feather name="user" color={color} size={size} />
               {focused && (
                 <View

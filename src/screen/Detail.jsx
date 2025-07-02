@@ -4,7 +4,7 @@ import { useLayoutEffect } from 'react';
 import { useGetProductByIdQuery } from '../app/service/dummyData';
 import Text from '../UI/SpText';
 import Feather from '@react-native-vector-icons/feather';
-import { moderateScale,verticalScale,scale } from 'react-native-size-matters';
+import { moderateScale, verticalScale, scale } from 'react-native-size-matters';
 
 const Detail = ({ navigation, route }) => {
   const id = route?.params?.id;
@@ -15,9 +15,10 @@ const Detail = ({ navigation, route }) => {
 
   useLayoutEffect(() => {
     if (data?.product?.name) {
-      navigation.setOptions({ title: data.product.name,
-          headerTitleAlign: 'center'
-       });
+      navigation.setOptions({
+        title: data.product.name,
+        headerTitleAlign: 'center',
+      });
     }
   }, [navigation, data]);
   const handleCount = () => {
@@ -148,6 +149,15 @@ const Detail = ({ navigation, route }) => {
               { backgroundColor: isDisabled ? 'gray' : '#007537' },
             ]}
             disabled={isDisabled}
+            onPress={() =>
+              navigation.navigate('Guest', {
+                screen: 'notification',
+                params: {
+                  count: count,
+                  data: data,
+                },
+              })
+            }
           >
             <Text weight="bold" size={16} alignment="center" color="white">
               Add to Cart
