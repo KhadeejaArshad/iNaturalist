@@ -4,6 +4,7 @@ import { useLayoutEffect } from 'react';
 import { useGetProductByIdQuery } from '../app/service/dummyData';
 import Text from '../UI/SpText';
 import Feather from '@react-native-vector-icons/feather';
+import { moderateScale,verticalScale,scale } from 'react-native-size-matters';
 
 const Detail = ({ navigation, route }) => {
   const id = route?.params?.id;
@@ -162,8 +163,8 @@ export default Detail;
 
 const styles = StyleSheet.create({
   imagecontainer: {
-    width: 410,
-    height: 268.31036376953125,
+    width: scale(410),
+    height: scale(268.31036376953125),
   },
   img: {
     width: '100%',
@@ -172,36 +173,36 @@ const styles = StyleSheet.create({
   catcontainer: {
     backgroundColor: '#009245',
     alignSelf: 'flex-start',
-    paddingBottom: 4,
-    paddingTop: 4,
-    paddingHorizontal: 8,
-    borderRadius: 4,
+    paddingBottom: verticalScale(4),
+    paddingTop: verticalScale(4),
+    paddingHorizontal: scale(8),
+    borderRadius: moderateScale(4),
   },
   category: {
     flexDirection: 'row',
-    gap: 10,
-    marginVertical: 12,
+    gap: scale(10),
+    marginVertical: verticalScale(12),
   },
   button: {
     backgroundColor: '#007537',
 
     width: '100%',
 
-    height: 50,
-    borderRadius: 12,
+    height: verticalScale(50),
+    borderRadius: moderateScale(12),
     justifyContent: 'center',
-    marginVertical: 10,
-    marginHorizontal: 10,
+    marginVertical: verticalScale(10),
+    marginHorizontal: scale(10),
     alignItems: 'center',
   },
   container: {
-    padding: 20,
+    padding: moderateScale(20),
   },
 
   buttoncontainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 60,
+    marginVertical: verticalScale(30),
   },
 });

@@ -5,6 +5,7 @@ import { fonts } from '../utils/font';
 import Text from '../UI/SpText';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { verticalScale,scale,moderateScale } from 'react-native-size-matters';
 
 
 const Search = ({navigation}) => {
@@ -72,26 +73,26 @@ const styles = StyleSheet.create({
   },
   search: {
     borderBottomWidth: 1,
-    width: 299,
+    width: scale(260),
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: verticalScale(10),
   },
   recentItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginVertical: 8,
+    gap: scale(10),
+    marginVertical: verticalScale(8),
   },
   resultItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
-    marginVertical: 8,
+    gap: scale(20),
+    marginVertical: verticalScale(8),
   },
   img:{
-    width:77,
-    height:77,
-    borderRadius:8
+    width:scale(77),
+    height:scale(77),
+    borderRadius:scale(8)
   }
 });

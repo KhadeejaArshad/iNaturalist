@@ -4,6 +4,7 @@ import { colors } from '../utils/color/color';
 import Text from '../UI/SpText';
 import { useSignUpMutation } from '../app/service/authData';
 import { useState } from 'react';
+import { verticalScale,moderateScale,scale } from 'react-native-size-matters';
 
 const SignUp = ({ navigation }) => {
   const [signUp, { isLoading, error }] = useSignUpMutation();
@@ -104,37 +105,38 @@ export default SignUp;
 
 const styles = StyleSheet.create({
   root: {
-    marginTop: 120,
+  
+    marginTop: verticalScale(90),
   },
   desc: {
-    width: 400,
-    height: 78,
+    width: scale(350),
+    height: verticalScale(48),
   },
   button: {
     backgroundColor: colors.dark,
     width: '70%',
 
-    height: 50,
-    borderRadius: 12,
+    height: verticalScale(50),
+    borderRadius: moderateScale(12),
     justifyContent: 'center',
-    marginVertical: 10,
-    marginHorizontal: 10,
+    marginVertical: verticalScale(10),
+    marginHorizontal: verticalScale(10),
     alignItems: 'center',
   },
   container: {
-    padding: 20,
+    padding: moderateScale(20),
   },
   input: {
-    borderBottomWidth: 1,
+    borderBottomWidth: scale(1),
     borderBottomColor: 'black',
-    marginBottom: 20,
-    fontSize: 16,
-    paddingVertical: 8,
+    marginBottom: verticalScale(20),
+    fontSize: moderateScale(16),
+    paddingVertical: verticalScale(8),
   },
   buttoncontainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: verticalScale(15),
   },
 });

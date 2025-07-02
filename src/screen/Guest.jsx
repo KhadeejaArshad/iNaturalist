@@ -2,6 +2,7 @@ import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import Text from '../UI/SpText';
 
 import React from 'react';
+import { moderateScale,scale,verticalScale } from 'react-native-size-matters';
 
 import Header from '../components/Guest/Header';
 import List from '../components/Guest/List';
@@ -53,12 +54,12 @@ export default Guest;
 
 const styles = StyleSheet.create({
   root: {
-    marginTop: 50,
+    marginTop: verticalScale(10),
   },
   card: {
     backgroundColor: '#F6F6F6',
-    width: 370,
-    height: 134,
+    width: scale(370),
+    height: verticalScale(134),
   },
 //   imagecontainer: {
 //     width: 108,
@@ -76,8 +77,8 @@ const styles = StyleSheet.create({
 },
 
 imageContainer: {
-  width: 108,
-  height: 134,
+  width: scale(108),
+  height: verticalScale(100),
   
   overflow: 'hidden',
   justifyContent: 'center',

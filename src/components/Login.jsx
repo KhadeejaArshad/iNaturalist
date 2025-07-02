@@ -3,6 +3,7 @@ import React from 'react';
 import { images } from '../utils/Images/images';
 import Text from '../UI/SpText';
 import LinearGradient from 'react-native-linear-gradient';
+import { moderateScale,verticalScale,scale } from 'react-native-size-matters';
 
 
 const Login = ({navigation}) => {
@@ -20,7 +21,7 @@ const Login = ({navigation}) => {
           end={{ x: 0.5, y: 1 }}
           style={styles.linear}
         >
-         <View style={{marginBottom:20}}>
+         <View>
              <Text size={24} color="white">
             Buy Your Favorite
           </Text>
@@ -43,7 +44,7 @@ const Login = ({navigation}) => {
           </Pressable>
 
           <Pressable onPress={()=>navigation.navigate('Guest')}>
-            <Text size={20} alignment="center" >
+            <Text size={20} alignment='center' marginV={8} >
               Guest
             </Text>
           </Pressable>
@@ -62,33 +63,33 @@ const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
     justifyContent: 'flex-end',
-    width:420,
-    height:664
+    width:scale(397),
+    height:verticalScale(470)
   },
   linear: {
-     paddingTop: 170,
-    paddingHorizontal: 20,
-    paddingBottom:60
+     paddingTop: verticalScale(170),
+    paddingHorizontal: scale(10),
+    paddingBottom:verticalScale(15)
  },
   button: {
     backgroundColor:'#2D5523',
-    width:'90%',
+    width:scale(327),
    
-    height: 72,
-    borderRadius: 12,
+    height: verticalScale(72),
+    borderRadius: moderateScale(12),
     justifyContent: 'center',
-    marginVertical: 10,
-     marginHorizontal:10
+    marginVertical: verticalScale(10),
+   
   },
   button2: {
     borderColor: '#2D5523',
-    borderWidth: 2,
-    width:'90%',
-    height: 72,
-    borderRadius: 12,
+    borderWidth: scale(2),
+    width:scale(327),
+    height: verticalScale(72),
+    borderRadius: moderateScale(12),
     justifyContent: 'center',
-    marginVertical: 10,
-    marginHorizontal:10
+    marginVertical: verticalScale(10),
+   
   },
 
 });

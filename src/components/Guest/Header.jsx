@@ -3,6 +3,7 @@ import Text from '../../UI/SpText';
 import React from 'react';
 import { images } from '../../utils/Images/images';
 import Feather from '@react-native-vector-icons/feather';
+import { moderateScale,verticalScale,scale } from 'react-native-size-matters';
 
 const Header = () => {
   return (
@@ -47,25 +48,25 @@ export default Header
 const styles = StyleSheet.create({
        root:{
         backgroundColor:'#F6F6F6',
-        width:410,
-        height:318
+        width:scale(360),
+        height:verticalScale(318)
     },
   bg: {
-    width: 410,
-    height: 205,
+    width: scale(400),
+    height: verticalScale(205),
  
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop:113,
-    marginHorizontal:12
+    marginTop:verticalScale(60),
+    marginHorizontal:scale(12)
   },
   iconbg:{
-    width:48,
-    height:46,
-    borderRadius:40,
-    marginHorizontal:8,
+    width:scale(48),
+    height:verticalScale(46),
+    borderRadius:moderateScale(40),
+    marginHorizontal:scale(8),
     backgroundColor: '#FFFFFF',
     alignItems:'center',
     justifyContent:'center'

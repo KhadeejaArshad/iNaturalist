@@ -3,10 +3,10 @@ import Text from '../../UI/SpText';
 import React from 'react';
 import { useGetAllProductQuery } from '../../app/service/dummyData';
 import { useDispatch, useSelector } from 'react-redux';
-import { colors } from '../../utils/color/color';
-import { fonts } from '../../utils/font';
+
 import { STATUSES } from '../../app/service/productSlice';
 import { useNavigation } from '@react-navigation/native';
+import { moderateScale,scale,verticalScale } from 'react-native-size-matters';
 
 const List = () => {
   const navigation = useNavigation();
@@ -44,12 +44,12 @@ const List = () => {
       keyExtractor={item => item._id}
       renderItem={renderProductItem}
       contentContainerStyle={{
-        paddingBottom: 10,
+        paddingBottom: verticalScale(10),
         justifyContent: 'space-between',
       }}
       columnWrapperStyle={{
-        marginHorizontal: 30,
-        columnGap: 20,
+        marginHorizontal: scale(15),
+        
       }}
       scrollEnabled={false}
       numColumns={2}
@@ -64,26 +64,23 @@ const List = () => {
 export default List;
 
 const styles = StyleSheet.create({
-  root: {
-    marginTop: 50,
-  },
 
   image: {
-    width: 155,
-    height: 130,
-    borderRadius: 8,
+    width: scale(155),
+    height: scale(130),
+    borderRadius: scale(8),
   },
   card: {
-    width: 180,
-    height: 217,
-    borderRadius: 8,
+    width: scale(170),
+    height: scale(217),
+    borderRadius: scale(8),
 
-    gap: 3,
+    gap: scale(3),
   },
   button:{
     alignSelf:'flex-end',
-    borderBottomWidth:1,
+    borderBottomWidth:scale(1),
     borderBottomColor:'black',
-    marginHorizontal:14
+    marginHorizontal:scale(14)
   }
 });
