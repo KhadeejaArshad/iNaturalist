@@ -21,6 +21,7 @@ import Text from '../UI/SpText';
 
 import { colors } from '../utils/color/color';
 import { useDispatch } from 'react-redux';
+import { moderateScale,scale,verticalScale } from 'react-native-size-matters';
 
 
 const AddNewProduct = ({ navigation }) => {
@@ -263,23 +264,23 @@ const styles = StyleSheet.create({
 
   input: {
     backgroundColor: 'white',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
-    borderRadius: 8,
-    marginBottom: 15,
+    paddingHorizontal: scale(15),
+    paddingVertical: verticalScale(12),
+    borderRadius: moderateScale(8),
+    marginBottom: verticalScale(15),
     borderColor: colors.dark,
-    borderWidth: 2,
-    fontSize: 16,
+    borderWidth: scale(2),
+    fontSize: moderateScale(16),
   },
   textArea: {
-    height: 100,
+    height: verticalScale(100),
     textAlignVertical: 'top',
   },
   pickerWrapper: {
     borderColor: colors.dark,
-    borderWidth: 2,
-    borderRadius: 8,
-    marginBottom: 15,
+    borderWidth: scale(2),
+    borderRadius: moderateScale(8),
+    marginBottom: verticalScale(15),
     overflow: 'hidden',
     backgroundColor: 'white',
     flex: 1,
@@ -290,18 +291,18 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.dark,
-    width: 327,
-    height: 60,
-    borderRadius: 12,
-    marginHorizontal: 18,
-    marginVertical: 10,
+    width: scale(319),
+    height: verticalScale(50),
+    borderRadius: moderateScale(12),
+    
+    marginVertical: verticalScale(10),
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
     fontFamily: fonts.bold,
-    fontSize: 20,
-    marginVertical: 15,
+    fontSize: moderateScale(20),
+    marginVertical: verticalScale(15),
   },
   bg: {
     flex: 1,

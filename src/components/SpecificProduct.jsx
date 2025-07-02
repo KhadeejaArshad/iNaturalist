@@ -14,6 +14,7 @@ import React from 'react';
 import { useLayoutEffect } from 'react';
 import { fonts } from '../utils/font';
 import { colors } from '../utils/color/color';
+import { verticalScale,scale,moderateScale } from 'react-native-size-matters';
 
 const SpecificProduct = ({ route, navigation }) => {
   const id = route?.params?.id;
@@ -103,9 +104,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imagecontainer: {
-    width: 420,
-    height: 350,
-    marginTop: 10,
+    width: scale(390),
+    height: scale(310),
+    marginTop: verticalScale(10),
    
   },
   image: {
@@ -115,42 +116,42 @@ const styles = StyleSheet.create({
   name: {
     color: colors.dark,
     fontWeight: 'bold',
-    fontSize: 28,
-    marginTop: 10,
-    marginHorizontal: 16,
+    fontSize: moderateScale(28),
+    marginTop: verticalScale(10),
+    marginHorizontal: scale(16),
   },
   detailSection: {
     backgroundColor: colors.header,
 
-    borderRadius: 16,
-    margin: 24,
-    paddingBottom: 22,
-    marginVertical: 20,
+    borderRadius: moderateScale(16),
+    margin: moderateScale(24),
+    paddingBottom: verticalScale(22),
+    marginVertical: verticalScale(20),
   },
   productDesccard: {
-    marginTop: 10,
-    padding: 20,
+    marginTop: verticalScale(10),
+    padding: moderateScale(20),
     backgroundColor: 'white',
-    borderRadius: 8,
-    marginHorizontal: 10,
+    borderRadius: moderateScale(8),
+    marginHorizontal: scale(10),
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 10,
-    marginTop: 16,
-    marginHorizontal: 10,
+    gap: scale(10),
+    marginTop: verticalScale(16),
+    marginHorizontal: scale(10),
   },
   productContainer: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 16,
-    borderRadius: 8,
+    padding: moderateScale(8),
+    borderRadius: moderateScale(8),
     alignItems: 'center',
   },
   heading: {
-    fontSize: 16,
-    marginBottom: 8,
+    fontSize: moderateScale(16),
+    marginBottom: verticalScale(8),
     color: colors.dark,
     fontFamily: fonts.bold,
   },
@@ -159,9 +160,9 @@ const styles = StyleSheet.create({
     fontFamily: fonts.regular,
   },
   header: {
-    fontSize: 22,
+    fontSize: moderateScale(22),
     color: colors.dark,
-    marginTop: 10,
+    marginTop: verticalScale(10),
 
     fontFamily: fonts.bold,
   },

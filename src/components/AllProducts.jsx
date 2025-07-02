@@ -7,6 +7,7 @@ import { colors } from '../utils/color/color';
 import { useDispatch,useSelector } from 'react-redux';
 import { fetchProduct, STATUSES } from '../app/service/productSlice';
  import { FlatList } from 'react-native';
+ import { verticalScale,moderateScale,scale } from 'react-native-size-matters';
 
 const AllProducts = ({ navigation }) => {
   const {} = useGetAllProductQuery();
@@ -125,39 +126,39 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   productContainer: {
-    marginVertical: 10,
-    padding: 10,
+    marginVertical: verticalScale(10),
+    padding: moderateScale(10),
     backgroundColor: 'white',
-    borderRadius: 8,
+    borderRadius: moderateScale(8),
     flexDirection: 'row',
-    marginHorizontal: 10,
-    borderWidth:2,
+    marginHorizontal: scale(10),
+    borderWidth:scale(2),
     borderColor:colors.dark
   },
   productTitle: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontFamily: fonts.bold,
   },
   productDescription: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#555',
-    width: 250,
+    width: scale(200),
     fontFamily: fonts.regular,
   },
   image: {
-    width: 100,
-    height: 100,
-    borderWidth:2,
+    width: scale(100),
+    height: scale(100),
+    borderWidth:scale(2),
     borderColor:colors.dark
   },
   productPrice: {
-    marginTop: 8,
-    fontSize: 16,
+    marginTop: verticalScale(8),
+    fontSize: moderateScale(16),
     fontFamily: fonts.bold,
     color: '#075B5E',
   },
   productdesc: {
-    marginHorizontal: 8,
+    marginHorizontal: scale(8),
   },
     bg: {
     flex: 1,
