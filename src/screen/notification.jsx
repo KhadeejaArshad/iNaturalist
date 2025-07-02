@@ -70,7 +70,7 @@ const notification = ({ route }) => {
     <View style={styles.root}>
       <View style={styles.root2}>
         <View style={styles.container}>
-          <Text size={16} color="black" marginH={12}>
+          <Text size={16} color="black" marginH={8}>
             {' '}
             {formattedDate}
           </Text>

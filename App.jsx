@@ -30,6 +30,7 @@ import Detail from './src/screen/Detail';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Search from './src/screen/Search';
 import notification from './src/screen/notification';
+import cart from './src/screen/cart';
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -217,6 +218,25 @@ const AuthStack = () => {
           headerRight: () => (
             <Feather name="shopping-cart" color="black" size={24} />
           ),
+        })}
+      />
+      <Stack.Screen
+        name="cart"
+        component={cart}
+        options={({ navigation }) => ({
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+           headerTitle:'CART',
+
+          headerLeft: () => (
+            <Feather
+              name="chevron-left"
+              color="black"
+              size={24}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+       
         })}
       />
     </Stack.Navigator>

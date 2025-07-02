@@ -4,8 +4,10 @@ import React from 'react';
 import { images } from '../../utils/Images/images';
 import Feather from '@react-native-vector-icons/feather';
 import { moderateScale,verticalScale,scale } from 'react-native-size-matters';
+import { useNavigation } from '@react-navigation/native';
 
 const Header = () => {
+  const navigation=useNavigation();
   return (
  <View style={styles.root}>
       <View style={styles.header}>
@@ -17,6 +19,7 @@ const Header = () => {
               name="shopping-cart"
               color="black"
               size={24}
+              onPress={()=>navigation.navigate('cart')}
              
             />
           </View>
@@ -64,8 +67,8 @@ const styles = StyleSheet.create({
   },
   iconbg:{
     width:scale(48),
-    height:verticalScale(46),
-    borderRadius:moderateScale(40),
+    height:scale(46),
+    borderRadius:scale(40),
     marginHorizontal:scale(8),
     backgroundColor: '#FFFFFF',
     alignItems:'center',
