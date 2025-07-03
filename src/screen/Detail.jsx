@@ -5,6 +5,8 @@ import { useGetProductByIdQuery } from '../app/service/dummyData';
 import Text from '../UI/SpText';
 import Feather from '@react-native-vector-icons/feather';
 import { moderateScale, verticalScale, scale } from 'react-native-size-matters';
+import { useSelector, useDispatch } from 'react-redux';
+import { addtoCart } from '../app/service/cartSlice';
 
 const Detail = ({ navigation, route }) => {
   const id = route?.params?.id;
@@ -12,6 +14,7 @@ const Detail = ({ navigation, route }) => {
   const [count, setCount] = useState(0);
   const [prize, setPrize] = useState(0);
   const isDisabled = count === 0;
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     if (data?.product?.name) {
@@ -149,15 +152,15 @@ const Detail = ({ navigation, route }) => {
               { backgroundColor: isDisabled ? 'gray' : '#007537' },
             ]}
             disabled={isDisabled}
-            onPress={() =>
-              navigation.navigate('Guest', {
-                screen: 'notification',
-                params: {
-                  count: count,
-                  data: data,
-                },
-              })
-            }
+            onPress={() => {
+              console.log(id);
+              
+              dispatch(addtoCart(id));
+              navigation.navigate('cart', {
+                count: count,
+                data: data,
+              });
+            }}
           >
             <Text weight="bold" size={16} alignment="center" color="white">
               Add to Cart

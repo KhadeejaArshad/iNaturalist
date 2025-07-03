@@ -4,6 +4,7 @@ import { productsApi } from './service/dummyData'
 import productSlice from './service/productSlice'
 import { authApi } from './service/authData';
 import authSlice from './service/authSlice'
+import cartSlice from './service/cartSlice'
 
 
 
@@ -12,7 +13,9 @@ export const store=configureStore({
         [productsApi.reducerPath]:productsApi.reducer,
         [authApi.reducerPath]:authApi.reducer,
         product:productSlice,
-        auth:authSlice
+        auth:authSlice,
+        cart:cartSlice
+        
         
     },
     middleware:(getDefaultMiddleware) =>
