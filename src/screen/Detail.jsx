@@ -155,11 +155,8 @@ const Detail = ({ navigation, route }) => {
             onPress={() => {
               console.log(id);
               
-              dispatch(addtoCart(id));
-              navigation.navigate('cart', {
-                count: count,
-                data: data,
-              });
+              dispatch(addtoCart({id:id, count:count }));
+              navigation.navigate('cart');
             }}
           >
             <Text weight="bold" size={16} alignment="center" color="white">
