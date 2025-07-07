@@ -82,7 +82,7 @@ const Checkout = () => {
           {paymentOptions.map(option => (
             <Pressable
               key={option.id}
-              style={[styles.subunderline, { flexDirection: 'row', justifyContent: 'space-between' }]}
+              style={[styles.subunderline, { flexDirection: 'row', justifyContent: 'space-between',marginVertical:verticalScale(12) }]}
               onPress={() => setSelectedPayment(option.id)}
             >
               <Text color={selectedPayment === option.id ? '#007537' : 'black'}>
@@ -94,6 +94,9 @@ const Checkout = () => {
             </Pressable>
           ))}
         </View>
+      </View>
+      <View>
+        <Text color='black'>SubTotal</Text>
       </View>
     </View>
   );
