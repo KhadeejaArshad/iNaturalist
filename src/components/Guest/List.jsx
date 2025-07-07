@@ -54,7 +54,7 @@ const List = () => {
       scrollEnabled={false}
       numColumns={2}
     />
-    <Pressable style={styles.button}>
+    <Pressable style={styles.button} onPress={()=>navigation.navigate('More')}>
         <Text  size={16} color='black'>See More</Text>
     </Pressable>
     </View>

@@ -32,6 +32,7 @@ import Search from './src/screen/Search';
 import notification from './src/screen/notification';
 
 import Cart from './src/screen/cart';
+import More from './src/screen/More';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -239,8 +240,31 @@ const AuthStack = () => {
             />
           ),
        
+       
         })}
+       
       />
+       <Stack.Screen
+       name='More'
+       component={More}
+       options={({navigation})=>({
+         headerTitleAlign: 'center',
+         headerTitle:'PLANTS',
+          headerShadowVisible: false,
+             headerLeft: () => (
+            <Feather
+              name="chevron-left"
+              color="black"
+              size={24}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+            headerRight: () => (
+            <Feather name="shopping-cart" color="black" size={24} />
+          ),
+
+       })}
+       />
     </Stack.Navigator>
   );
 };
