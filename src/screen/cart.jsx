@@ -144,12 +144,12 @@ const Cart = ({ navigation }) => {
               SubTotal
             </Text>
             <Text size={16} color="black">
-              ${subtotal.toFixed(2)}
+              ${subtotal}
             </Text>
           </View>
 
           <View style={styles.buttoncontainer}>
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={()=>navigation.navigate('Checkout')}>
               <Text marginH={12} size={16} alignment="center" color="white">
                 Proceed to CheckOut
               </Text>

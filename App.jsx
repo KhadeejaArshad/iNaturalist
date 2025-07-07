@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import { store } from './src/app/store';
 import AllProducts from './src/components/AllProducts';
@@ -33,6 +25,7 @@ import notification from './src/screen/notification';
 
 import Cart from './src/screen/cart';
 import More from './src/screen/More';
+import Checkout from './src/screen/Checkout';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -262,6 +255,25 @@ const AuthStack = () => {
             headerRight: () => (
             <Feather name="shopping-cart" color="black" size={24} />
           ),
+
+       })}
+       />
+          <Stack.Screen
+       name='Checkout'
+       component={Checkout}
+       options={({navigation})=>({
+         headerTitleAlign: 'center',
+         headerTitle:'Checkout',
+          headerShadowVisible: false,
+             headerLeft: () => (
+            <Feather
+              name="chevron-left"
+              color="black"
+              size={24}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          
 
        })}
        />
