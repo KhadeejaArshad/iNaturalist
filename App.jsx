@@ -30,7 +30,9 @@ import Detail from './src/screen/Detail';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Search from './src/screen/Search';
 import notification from './src/screen/notification';
-import cart from './src/screen/cart';
+
+import Cart from './src/screen/cart';
+
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -222,7 +224,7 @@ const AuthStack = () => {
       />
       <Stack.Screen
         name="cart"
-        component={cart}
+        component={Cart}
         options={({ navigation }) => ({
           headerTitleAlign: 'center',
           headerShadowVisible: false,
@@ -311,7 +313,10 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <RootNavigator />
+      
+         <RootNavigator />
+     
+       
       </NavigationContainer>
     </Provider>
   );

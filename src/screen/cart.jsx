@@ -1,15 +1,16 @@
 import { FlatList, Image, Pressable, StyleSheet, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Text from '../UI/SpText';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import Feather from '@react-native-vector-icons/feather';
 import { useSelector, useDispatch } from 'react-redux';
-import { removefrom } from '../app/service/cartSlice';
+import { deleteAll, removefrom } from '../app/service/cartSlice';
 import { useGetProductByIdQuery } from '../app/service/dummyData';
 import { addtoCart } from '../app/service/cartSlice';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
-const cart = () => {
-  const items = useSelector(state => state.cart.items);
+const Cart = ({ navigation }) => {
+  const items = useSelector(state => state.cart.items) || [];
   const Ids = items.map(item => item.id);
   const dispatch = useDispatch();
   const [pressedItems, setPressedItems] = useState({});
@@ -18,16 +19,33 @@ const cart = () => {
   const isLoading = productQueries.some(q => q.isLoading);
   const isError = productQueries.some(q => q.isError);
   const products = productQueries.map(q => q.data?.product).filter(Boolean);
-
+  const refRBSheet = useRef();
   if (isLoading) return <Text>Loading...</Text>;
   if (isError) return <Text>Error loading one or more products</Text>;
 
-  const selectedProducts = items.filter(item => pressedItems[item.id]);
+  const selectedProducts = (items || []).filter(item => pressedItems[item.id]);
   const subtotal = selectedProducts.reduce((sum, cartItem) => {
     const product = products.find(p => p._id === cartItem.id);
     if (!product) return sum;
     return sum + product.price * cartItem.count;
   }, 0);
+
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable
+          style={{ marginRight: 16 }}
+          onPress={() => {
+            refRBSheet.current?.open();
+            console.log('pressed!!');
+          }}
+        >
+          <Feather name="trash-2" size={24} color="black" />
+        </Pressable>
+      ),
+    });
+  }, [navigation]);
 
   const renderItem = ({ item }) => {
     const isPressed = pressedItems[item._id] || false;
@@ -73,7 +91,11 @@ const cart = () => {
           <Text color="#007537">${item.price}</Text>
 
           <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: scale(200),
+            }}
           >
             <View
               style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}
@@ -97,7 +119,7 @@ const cart = () => {
             </View>
 
             <Pressable
-              onPress={() => dispatch(removefrom(item._id))}
+              // onPress={() => dispatch(removefrom(item._id))}
               style={styles.underline}
             >
               <Text color="black">Remove</Text>
@@ -115,15 +137,14 @@ const cart = () => {
         keyExtractor={item => item._id}
         renderItem={renderItem}
       />
-
-      {selectedProducts.length > 0 && (
+      {selectedProducts.length > 0 ? (
         <View>
           <View style={styles.subtotal}>
             <Text size={16} color="black">
               SubTotal
             </Text>
             <Text size={16} color="black">
-              ${subtotal}
+              ${subtotal.toFixed(2)}
             </Text>
           </View>
 
@@ -132,18 +153,69 @@ const cart = () => {
               <Text marginH={12} size={16} alignment="center" color="white">
                 Proceed to CheckOut
               </Text>
-              <View style={{marginHorizontal:scale(12)}}>
+              <View style={{ marginHorizontal: scale(12) }}>
                 <Feather name="chevron-right" size={24} color="white" />
               </View>
             </Pressable>
           </View>
         </View>
+      ) : (
+        <View style={{ alignItems: 'center', padding: 20 }}></View>
       )}
+
+      <RBSheet
+        ref={refRBSheet}
+        customStyles={{
+          wrapper: {
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+          },
+          container: {
+            height: verticalScale(173),
+            width: scale(320),
+            marginHorizontal: scale(15),
+            borderRadius: moderateScale(20),
+
+            marginVertical: verticalScale(20),
+          },
+          draggableIcon: {
+            backgroundColor: '#000',
+          },
+        }}
+        customModalProps={{
+          animationType: 'slide',
+          statusBarTranslucent: true,
+        }}
+        customAvoidingViewProps={{
+          enabled: false,
+        }}
+      >
+        <View style={styles.modal}>
+          <Text size={16} color="black">
+            Delete all orders?
+          </Text>
+          <Text color="#7D7B7B">This cannot be undone</Text>
+          <View style={styles.buttoncontainer2}>
+            <Pressable style={styles.button2}>
+              <Text marginH={12} size={16} alignment="center" color="white">
+                Yes
+              </Text>
+            </Pressable>
+          </View>
+          <Pressable
+            style={styles.underline}
+            onPress={() => refRBSheet.current?.close()}
+          >
+            <Text size={16} color="black">
+              Cancel
+            </Text>
+          </Pressable>
+        </View>
+      </RBSheet>
     </View>
   );
 };
 
-export default cart;
+export default Cart;
 
 const styles = StyleSheet.create({
   root: {
@@ -206,5 +278,27 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(35),
     marginHorizontal: scale(10),
     alignItems: 'center',
+  },
+  buttoncontainer2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: verticalScale(30),
+    width: scale(285),
+  },
+  button2: {
+    backgroundColor: '#007537',
+    width: '100%',
+    height: verticalScale(50),
+    borderRadius: moderateScale(12),
+    justifyContent: 'center',
+
+    alignItems: 'center',
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: verticalScale(20),
   },
 });
