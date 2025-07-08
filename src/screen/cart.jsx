@@ -149,7 +149,9 @@ const Cart = ({ navigation }) => {
           </View>
 
           <View style={styles.buttoncontainer}>
-            <Pressable style={styles.button} onPress={()=>navigation.navigate('Checkout')}>
+            <Pressable style={styles.button} onPress={()=>navigation.navigate('Checkout',{
+              subtotal:subtotal
+            })}>
               <Text marginH={12} size={16} alignment="center" color="white">
                 Proceed to CheckOut
               </Text>
