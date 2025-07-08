@@ -24,12 +24,13 @@ const Cart = ({ navigation }) => {
   if (isError) return <Text>Error loading one or more products</Text>;
 
   const selectedProducts = (items || []).filter(item => pressedItems[item.id]);
+  
+  
   const subtotal = selectedProducts.reduce((sum, cartItem) => {
     const product = products.find(p => p._id === cartItem.id);
     if (!product) return sum;
     return sum + product.price * cartItem.count;
   }, 0);
-
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -149,9 +150,15 @@ const Cart = ({ navigation }) => {
           </View>
 
           <View style={styles.buttoncontainer}>
-            <Pressable style={styles.button} onPress={()=>navigation.navigate('Checkout',{
-              subtotal:subtotal
-            })}>
+            <Pressable
+              style={styles.button}
+              onPress={() =>
+                navigation.navigate('Checkout', {
+                  subtotal: subtotal,
+                 
+                })
+              }
+            >
               <Text marginH={12} size={16} alignment="center" color="white">
                 Proceed to CheckOut
               </Text>

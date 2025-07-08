@@ -5,17 +5,23 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Text from '../UI/SpText';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import Feather from '@react-native-vector-icons/feather';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
 
 const Checkout = ({ route }) => {
   const [selectedDelivery, setSelectedDelivery] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState(null);
   const subtotal = route?.params?.subtotal || 0;
+  const [step, setStep] = useState(1);
+  const refRBSheet = useRef();
+  const [submitData, setsumbitData] = useState(null);
+  const navigation = useNavigation();
   const inputFields = [
     { key: 'name', placeholder: 'Trần Minh Trí' },
     { key: 'email', placeholder: 'tmtri310251@gmail.com' },
@@ -50,6 +56,11 @@ const Checkout = ({ route }) => {
       .required('Please input your email'),
     address: Yup.string().required('Please input your address'),
     phone: Yup.string().required('Please input your phonenumber'),
+    pin: step === 2 ? Yup.string().required('Pin is required') : Yup.string(),
+    card: step === 2 ? Yup.string().required('Card is required') : Yup.string(),
+    expiry:
+      step === 2 ? Yup.string().required('Expiry is required') : Yup.string(),
+    cvv: step === 2 ? Yup.string().required('cvv is required') : Yup.string(),
   });
 
   const handleSubmit = values => {
@@ -58,19 +69,29 @@ const Checkout = ({ route }) => {
       return;
     }
 
-    const delivery = deliveryOptions.find(d => d.id === selectedDelivery);
+    const delivery = deliveryOptions.find(d => d.id === selectedDelivery.id);
     const total = subtotal + delivery.fee;
 
-    console.log({
+    const finalData = {
       ...values,
       selectedDelivery,
       selectedPayment,
       subtotal,
       deliveryFee: delivery.fee,
       total,
-    });
-
-    alert('Order placed successfully!');
+    };
+    if (step === 1) {
+      setsumbitData(finalData);
+      setStep(2);
+      console.log(finalData);
+      setsumbitData(finalData);
+    } else {
+      console.log(finalData);
+      refRBSheet.current?.open();
+    }
+  };
+  const handleUpdate = () => {
+    setStep(1);
   };
 
   return (
@@ -80,6 +101,10 @@ const Checkout = ({ route }) => {
         email: '',
         address: '',
         phone: '',
+        pin: '',
+        card: '',
+        expiry: '',
+        cvv: '',
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
@@ -97,116 +122,215 @@ const Checkout = ({ route }) => {
       }) => (
         <View style={styles.root}>
           <ScrollView contentContainerStyle={styles.scrollcontainer}>
-            <View style={styles.form}>
-              <View style={styles.subform}>
-                <View style={styles.underline}>
-                  <Text color="black">Personal Information</Text>
-                </View>
-
-                {inputFields.map(({ key, placeholder }) => (
-                  <View key={key} style={styles.subunderline}>
-                    <TextInput
-                      placeholder={placeholder}
-                      onChangeText={handleChange(key)}
-                      onBlur={handleBlur(key)}
-                      value={values[key]}
-                    />
-                    {touched[key] && errors[key] && (
-                      <Text color="red">{errors[key]}</Text>
-                    )}
+            {step === 1 ? (
+              <View style={styles.form}>
+                <View style={styles.subform}>
+                  <View style={styles.underline}>
+                    <Text color="black">Personal Information</Text>
                   </View>
-                ))}
-              </View>
 
-              <View style={styles.subform}>
-                <View style={styles.underline}>
-                  <Text color="black">Delivery Method</Text>
-                </View>
-
-                {deliveryOptions.map(option => (
-                  <Pressable
-                    key={option.id}
-                    style={styles.container}
-                    onPress={() => setSelectedDelivery(option.id)}
-                  >
-                    <View style={styles.row}>
-                      <Text
-                        color={
-                          selectedDelivery === option.id ? '#007537' : 'black'
-                        }
-                      >
-                        {option.label}
-                      </Text>
-                      {selectedDelivery === option.id && (
-                        <Feather
-                          name="check"
-                          size={20}
-                          color="#007537"
-                          style={styles.icon}
+                  {inputFields.map(({ key, placeholder }) => (
+                    <View key={key}>
+                      <View style={styles.subunderline}>
+                        <TextInput
+                          placeholder={placeholder}
+                          onChangeText={handleChange(key)}
+                          onBlur={handleBlur(key)}
+                          value={values[key]}
                         />
+                      </View>
+                      {touched[key] && errors[key] && (
+                        <Text color="red">{errors[key]}</Text>
                       )}
                     </View>
-                    <TextInput
-                      placeholder={option.placeholder}
-                      editable={false}
-                    />
-                  </Pressable>
-                ))}
-              </View>
-
-              <View style={styles.subform}>
-                <View style={styles.underline}>
-                  <Text color="black">Payment Method</Text>
+                  ))}
                 </View>
 
-                {paymentOptions.map(option => (
-                  <Pressable
-                    key={option.id}
-                    style={[
-                      styles.subunderline,
-                      {
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginVertical: verticalScale(12),
-                      },
-                    ]}
-                    onPress={() => setSelectedPayment(option.id)}
-                  >
-                    <Text
-                      color={
-                        selectedPayment === option.id ? '#007537' : 'black'
-                      }
+                <View style={styles.subform}>
+                  <View style={styles.underline}>
+                    <Text color="black">Delivery Method</Text>
+                  </View>
+
+                  {deliveryOptions.map(option => (
+                    <Pressable
+                      key={option?.id}
+                      style={styles.container}
+                      onPress={() => setSelectedDelivery(option)}
                     >
-                      {option.label}
-                    </Text>
-                    {selectedPayment === option.id && (
-                      <Feather name="check" size={20} color="#007537" />
-                    )}
-                  </Pressable>
-                ))}
+                      <View style={styles.row}>
+                        <Text
+                          color={
+                            selectedDelivery?.id === option?.id
+                              ? '#007537'
+                              : 'black'
+                          }
+                        >
+                          {option.label}
+                        </Text>
+                        {selectedDelivery?.id === option?.id && (
+                          <Feather
+                            name="check"
+                            size={20}
+                            color="#007537"
+                            style={styles.icon}
+                          />
+                        )}
+                      </View>
+                      <TextInput
+                        placeholder={option.placeholder}
+                        editable={false}
+                      />
+                    </Pressable>
+                  ))}
+                </View>
+
+                {selectedDelivery?.id !== 'cod' ? (
+                  <View style={styles.subform}>
+                    <View style={styles.underline}>
+                      <Text color="black">Payment Method</Text>
+                    </View>
+
+                    {paymentOptions.map(option => (
+                      <Pressable
+                        key={option?.id}
+                        style={[
+                          styles.subunderline,
+                          {
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginVertical: verticalScale(12),
+                          },
+                        ]}
+                        onPress={() => setSelectedPayment(option)}
+                      >
+                        <Text
+                          color={
+                            selectedPayment?.id === option?.id
+                              ? '#007537'
+                              : 'black'
+                          }
+                        >
+                          {option?.label}
+                        </Text>
+                        {selectedPayment?.id === option?.id && (
+                          <Feather name="check" size={20} color="#007537" />
+                        )}
+                      </Pressable>
+                    ))}
+                  </View>
+                ) : null}
               </View>
-            </View>
+            ) : (
+              <View style={styles.form}>
+                <View style={styles.subform}>
+                  <View style={styles.underline}>
+                    <Text color="black">Banking Information</Text>
+                  </View>
+                  <View style={styles.subunderline}>
+                    <TextInput
+                      placeholder="PIN"
+                      onChangeText={handleChange('pin')}
+                      onBlur={handleBlur('pin')}
+                      value={values.pin}
+                      keyboardType="numeric"
+                    />
+                  </View>
+                  <View style={styles.subunderline}>
+                    <TextInput
+                      placeholder="Card Name"
+                      onChangeText={handleChange('card')}
+                      onBlur={handleBlur('card')}
+                      value={values.card}
+                    />
+                  </View>
+                  <View style={styles.subunderline}>
+                    <TextInput
+                      placeholder="Expired Date (MM/YY)"
+                      onChangeText={handleChange('expiry')}
+                      onBlur={handleBlur('expiry')}
+                      value={values.expiry}
+                    />
+                  </View>
+                  <View style={styles.subunderline3}>
+                    <TextInput
+                      placeholder="CVV"
+                      onChangeText={handleChange('cvv')}
+                      onBlur={handleBlur('cvv')}
+                      value={values.cvv}
+                      secureTextEntry={true}
+                      keyboardType="numeric"
+                    />
+                    <Feather
+                      name="info"
+                      size={20}
+                      color="#7D7B7B"
+                      style={styles.icon}
+                    />
+                  </View>
+                </View>
+                <View style={styles.subform}>
+                  <View style={styles.underline2}>
+                    <Text color="black">Personal Information</Text>
+                    <Pressable onPress={() => handleUpdate()}>
+                      <Text color="#7D7B7B">edit</Text>
+                    </Pressable>
+                  </View>
+                  <View style={styles.review}>
+                    <Text color="#7D7B7B" marginV={8}>
+                      {submitData.name}
+                    </Text>
+                    <Text color="#7D7B7B" marginV={8}>
+                      {submitData.email}
+                    </Text>
+                    <Text color="#7D7B7B" marginV={8}>
+                      {submitData.address}
+                    </Text>
+                    <Text color="#7D7B7B" marginV={8}>
+                      {submitData.phone}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.subform}>
+                  <View style={styles.underline2}>
+                    <Text color="black">Delivery Method</Text>
+                    <Pressable>
+                      <Text color="#7D7B7B">edit</Text>
+                    </Pressable>
+                  </View>
+                  <View style={styles.review}>
+                    <Text color="#7D7B7B" marginV={8}>
+                      {submitData.selectedDelivery.label}
+                    </Text>
+                    <Text color="#7D7B7B" marginV={8}>
+                      {submitData.selectedDelivery.placeholder}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            )}
           </ScrollView>
 
           <View style={styles.fixed}>
             <View style={styles.pay}>
-              <Text color="#ABABAB">SubTotal</Text>
+              <Text color="#858585">SubTotal</Text>
               <Text color="black">${subtotal}</Text>
             </View>
             <View style={styles.pay}>
-              <Text color="#ABABAB">Delivery Fee</Text>
+              <Text color="#858585">Delivery Fee</Text>
               <Text color="black">
                 $
-                {deliveryOptions.find(d => d.id === selectedDelivery)?.fee || 0}
+                {deliveryOptions.find(d => d.id === selectedDelivery?.id)
+                  ?.fee || 0}
               </Text>
             </View>
             <View style={styles.pay}>
-              <Text color="#ABABAB">Total</Text>
+              <Text color="#858585">Total</Text>
               <Text color="black">
                 $
                 {subtotal +
-                  (deliveryOptions.find(d => d.id === selectedDelivery)?.fee ||
-                    0)}
+                  (deliveryOptions.find(d => d.id === selectedDelivery?.id)
+                    ?.fee || 0)}
               </Text>
             </View>
             <View style={styles.buttoncontainer}>
@@ -216,7 +340,7 @@ const Checkout = ({ route }) => {
                   !(isValid && dirty) && { backgroundColor: '#ABABAB' },
                 ]}
                 onPress={handleSubmit}
-                disabled={!(isValid && dirty)} 
+                disabled={!(isValid && dirty)}
               >
                 <Text
                   marginH={12}
@@ -225,11 +349,67 @@ const Checkout = ({ route }) => {
                   alignment="center"
                   color="white"
                 >
-                  Continue
+                  CONTINUE
                 </Text>
               </Pressable>
             </View>
           </View>
+          <RBSheet
+            ref={refRBSheet}
+            customStyles={{
+              wrapper: {
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+              },
+              container: {
+                height: verticalScale(173),
+                width: scale(320),
+                marginHorizontal: scale(15),
+                borderRadius: moderateScale(20),
+
+                marginVertical: verticalScale(20),
+              },
+              draggableIcon: {
+                backgroundColor: '#000',
+              },
+            }}
+            customModalProps={{
+              animationType: 'slide',
+              statusBarTranslucent: true,
+            }}
+            customAvoidingViewProps={{
+              enabled: false,
+            }}
+          >
+            <View style={styles.modal}>
+              <Text size={16} color="black">
+                Confirm Checkout?
+              </Text>
+
+              <View style={styles.buttoncontainer2}>
+                <Pressable
+                  style={styles.button2}
+                  onPress={() => {
+                    navigation.navigate('Guest', {
+                      screen: 'notification',
+                      params: { submitData },
+                    });
+                  }}
+                >
+                  <Text marginH={12} size={16} alignment="center" color="white">
+                    Yes
+                  </Text>
+                </Pressable>
+              </View>
+              <Pressable
+                style={styles.underline}
+                onPress={() => refRBSheet.current?.close()}
+              >
+                <Text size={16} color="black">
+                  Cancel
+                </Text>
+              </Pressable>
+            </View>
+          </RBSheet>
         </View>
       )}
     </Formik>
@@ -263,6 +443,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: '#ABABAB',
     marginVertical: verticalScale(10),
+  },
+  subunderline3: {
+    borderBottomWidth: 0.5,
+    borderColor: '#ABABAB',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: scale(187),
+    justifyContent: 'space-between',
   },
   container: {
     marginTop: verticalScale(10),
@@ -308,5 +496,36 @@ const styles = StyleSheet.create({
   },
   scrollcontainer: {
     paddingBottom: verticalScale(140),
+  },
+  review: {
+    padding: moderateScale(10),
+  },
+  underline2: {
+    borderBottomWidth: 0.5,
+    borderColor: '#221F1F',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  buttoncontainer2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: verticalScale(30),
+    width: scale(285),
+  },
+  button2: {
+    backgroundColor: '#007537',
+    width: '100%',
+    height: verticalScale(50),
+    borderRadius: moderateScale(12),
+    justifyContent: 'center',
+
+    alignItems: 'center',
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: verticalScale(20),
   },
 });

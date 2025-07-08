@@ -21,11 +21,12 @@ import Guest from './src/screen/Guest';
 import Detail from './src/screen/Detail';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Search from './src/screen/Search';
-import notification from './src/screen/notification';
+
 
 import Cart from './src/screen/cart';
 import More from './src/screen/More';
 import Checkout from './src/screen/Checkout';
+import Notification from './src/screen/notification';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -111,7 +112,7 @@ const BottomTabNavigation = ({ navigation }) => {
       />
       <BottomTab.Screen
         name="notification"
-        component={notification}
+        component={Notification}
         options={{
           headerTitleAlign: 'center',
           headerShadowVisible: false,
