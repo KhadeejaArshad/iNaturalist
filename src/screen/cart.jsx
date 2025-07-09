@@ -155,6 +155,8 @@ const Cart = ({ navigation }) => {
               onPress={() =>
                 navigation.navigate('Checkout', {
                   subtotal: subtotal,
+                  selectedProducts:selectedProducts
+
                  
                 })
               }

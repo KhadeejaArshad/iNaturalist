@@ -18,6 +18,8 @@ const Checkout = ({ route }) => {
   const [selectedDelivery, setSelectedDelivery] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState(null);
   const subtotal = route?.params?.subtotal || 0;
+  const  selectedProducts= route?.params?.selectedProducts;
+
   const [step, setStep] = useState(1);
   const refRBSheet = useRef();
   const [submitData, setsumbitData] = useState(null);
@@ -64,8 +66,13 @@ const Checkout = ({ route }) => {
   });
 
   const handleSubmit = values => {
-    if (!selectedDelivery || !selectedPayment) {
-      alert('Please select delivery and payment method');
+    if (!selectedDelivery) {
+      alert('Please select a delivery method');
+      return;
+    }
+
+    if (selectedDelivery.id === 'quick' && !selectedPayment) {
+      alert('Please select a payment method');
       return;
     }
 
@@ -75,21 +82,20 @@ const Checkout = ({ route }) => {
     const finalData = {
       ...values,
       selectedDelivery,
-      selectedPayment,
+      selectedPayment: selectedDelivery.id === 'quick' ? selectedPayment : 'cash',
       subtotal,
       deliveryFee: delivery.fee,
       total,
     };
+
     if (step === 1) {
       setsumbitData(finalData);
       setStep(2);
-      console.log(finalData);
-      setsumbitData(finalData);
     } else {
-      console.log(finalData);
       refRBSheet.current?.open();
     }
   };
+
   const handleUpdate = () => {
     setStep(1);
   };
@@ -108,7 +114,6 @@ const Checkout = ({ route }) => {
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
-      validateOnMount
     >
       {({
         handleChange,
@@ -391,7 +396,7 @@ const Checkout = ({ route }) => {
                   onPress={() => {
                     navigation.navigate('Guest', {
                       screen: 'notification',
-                      params: { submitData },
+                      params: { submitData,selectedProducts },
                     });
                   }}
                 >
