@@ -27,6 +27,7 @@ import Cart from './src/screen/cart';
 import More from './src/screen/More';
 import Checkout from './src/screen/Checkout';
 import Notification from './src/screen/notification';
+import Profile from './src/screen/Profile';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -152,9 +153,12 @@ const BottomTabNavigation = ({ navigation }) => {
       />
       <BottomTab.Screen
         name="profile"
-        component={Guest}
+        component={Profile}
         options={{
-          headerShown: false,
+         headerTitle:'PROFILE',
+         headerTitleAlign:'center',
+         headerShadowVisible:false,
+
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: 'center', marginTop: 4 }}>
               <Feather name="user" color={color} size={size} />
