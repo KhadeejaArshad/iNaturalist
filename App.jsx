@@ -22,7 +22,6 @@ import Detail from './src/screen/Detail';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Search from './src/screen/Search';
 
-
 import Cart from './src/screen/cart';
 import More from './src/screen/More';
 import Checkout from './src/screen/Checkout';
@@ -32,6 +31,7 @@ import Edit from './src/screen/Edit';
 import PlantingGuide from './src/screen/PlantingGuide';
 import Specific from './src/screen/Specific';
 import FAQ from './src/screen/FAQ';
+import End from './src/screen/End';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -121,7 +121,7 @@ const BottomTabNavigation = ({ navigation }) => {
         options={{
           headerTitleAlign: 'center',
           headerShadowVisible: false,
-          headerTitle:'NOTIFICATION',
+          headerTitle: 'NOTIFICATION',
 
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: 'center', marginTop: 4 }}>
@@ -139,7 +139,7 @@ const BottomTabNavigation = ({ navigation }) => {
               )}
             </View>
           ),
-            headerLeft: () => (
+          headerLeft: () => (
             <View style={{ marginHorizontal: 18 }}>
               <Feather
                 name="chevron-left"
@@ -159,7 +159,7 @@ const BottomTabNavigation = ({ navigation }) => {
         name="profile"
         component={ProfileStack}
         options={{
-         headerShown:false,
+          headerShown: false,
 
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: 'center', marginTop: 4 }}>
@@ -183,57 +183,69 @@ const BottomTabNavigation = ({ navigation }) => {
   );
 };
 
-const ProfileStack=()=>{
-  return(
+const ProfileStack = () => {
+  return (
     <Stack.Navigator>
-       <Stack.Screen name='profile'
-      component={Profile}
-      options={{
-         headerTitle:'PROFILE',
-         headerTitleAlign:'center',
-         headerShadowVisible:false,
-      }}/>
-      <Stack.Screen name='Edit'
-      component={Edit}
-         options={{
-         headerTitle:'EDIT INFORMATION',
-         headerTitleAlign:'center',
-         headerShadowVisible:false,
-      }}/>
-          <Stack.Screen name='PlantingGuide'
-      component={PlantingGuideStack}
-         options={{
-          headerShown:false}}
-          />
-           <Stack.Screen name='FAQ'
-      component={FAQ}
-         options={{
-         headerTitle:'FAQS',
-         headerTitleAlign:'center',
-         headerShadowVisible:false,
-      }}/>
+      <Stack.Screen
+        name="profile"
+        component={Profile}
+        options={{
+          headerTitle: 'PROFILE',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Edit"
+        component={Edit}
+        options={{
+          headerTitle: 'EDIT INFORMATION',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="PlantingGuideStack"
+        component={PlantingGuideStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="FAQ"
+        component={FAQ}
+        options={{
+          headerTitle: 'FAQS',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
     </Stack.Navigator>
-  )
-}
-const PlantingGuideStack=()=>{
- return(
-   <Stack.Navigator>
-    <Stack.Screen name='PlantingGuide'
-       component={PlantingGuide}
-         options={{
-         headerTitle:'PLANTING GUIDE',
-         headerTitleAlign:'center',
-         headerShadowVisible:false,
-      }}/>
-       <Stack.Screen name='Specific'
-       component={Specific}
-         options={{
-         headerTitleAlign:'center',
-         headerShadowVisible:false,
-      }}/>
-  </Stack.Navigator>
- )
-}
+  );
+};
+const PlantingGuideStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="PlantingGuide"
+        component={PlantingGuide}
+        options={{
+          headerTitle: 'PLANTING GUIDE',
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Specific"
+        component={Specific}
+        options={{
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const AuthStack = () => {
   return (
@@ -281,7 +293,7 @@ const AuthStack = () => {
         options={({ navigation }) => ({
           headerTitleAlign: 'center',
           headerShadowVisible: false,
-           headerTitle:'CART',
+          headerTitle: 'CART',
 
           headerLeft: () => (
             <Feather
@@ -291,19 +303,16 @@ const AuthStack = () => {
               onPress={() => navigation.goBack()}
             />
           ),
-       
-       
         })}
-       
       />
-       <Stack.Screen
-       name='More'
-       component={More}
-       options={({navigation})=>({
-         headerTitleAlign: 'center',
-         headerTitle:'PLANTS',
+      <Stack.Screen
+        name="More"
+        component={More}
+        options={({ navigation }) => ({
+          headerTitleAlign: 'center',
+          headerTitle: 'PLANTS',
           headerShadowVisible: false,
-             headerLeft: () => (
+          headerLeft: () => (
             <Feather
               name="chevron-left"
               color="black"
@@ -311,20 +320,19 @@ const AuthStack = () => {
               onPress={() => navigation.goBack()}
             />
           ),
-            headerRight: () => (
+          headerRight: () => (
             <Feather name="shopping-cart" color="black" size={24} />
           ),
-
-       })}
-       />
-          <Stack.Screen
-       name='Checkout'
-       component={Checkout}
-       options={({navigation})=>({
-         headerTitleAlign: 'center',
-         headerTitle:'Checkout',
+        })}
+      />
+      <Stack.Screen
+        name="Checkout"
+        component={Checkout}
+        options={({ navigation }) => ({
+          headerTitleAlign: 'center',
+          headerTitle: 'Checkout',
           headerShadowVisible: false,
-             headerLeft: () => (
+          headerLeft: () => (
             <Feather
               name="chevron-left"
               color="black"
@@ -332,10 +340,26 @@ const AuthStack = () => {
               onPress={() => navigation.goBack()}
             />
           ),
-          
+        })}
+      />
+        <Stack.Screen
+        name="End"
+        component={End}
+        options={({ navigation }) => ({
 
-       })}
-       />
+          headerTitleAlign: 'center',
+          headerTitle: 'NOTIFICATION',
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <Feather
+              name="chevron-left"
+              color="black"
+              size={24}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };
@@ -408,10 +432,8 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      
-         <RootNavigator />
-     
-       
+
+        <RootNavigator />
       </NavigationContainer>
     </Provider>
   );

@@ -394,10 +394,10 @@ const Checkout = ({ route }) => {
                 <TouchableOpacity
                   style={styles.button2}
                   onPress={() => {
-                    navigation.navigate('Guest', {
-                      screen: 'notification',
-                      params: { submitData,selectedProducts },
-                    });
+                    navigation.navigate('End', {
+                    submitData:submitData,
+                    selectedProducts:selectedProducts },
+                    );
                   }}
                 >
                   <Text marginH={12} size={16} alignment="center" color="white">

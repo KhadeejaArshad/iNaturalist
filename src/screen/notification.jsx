@@ -1,18 +1,45 @@
-import { Image, ScrollView, StyleSheet, View,TouchableOpacity } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  View,
+  FlatList,
+} from 'react-native';
 import Text from '../UI/SpText';
 import React from 'react';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { useGetProductByIdQuery } from '../app/service/dummyData';
 
-const Notification = ({ route,navigation }) => {
-  const submitData = route?.params?.submitData;
-  const selectedProducts = route?.params?.selectedProducts;
-  // const data = route?.params?.data;
-  const count = selectedProducts[0].count;
-  console.log(submitData);
-  const productId = selectedProducts[0].id;
-  const { data } = useGetProductByIdQuery(productId);
-  console.log(data);
+import { useSelector } from 'react-redux';
+
+const Notification = () => {
+  const product = useSelector(state => state.product.data);
+  console.log(product);
+  const count = 4;
+
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.root2}>
+        <View style={styles.container}>
+          <Text size={16} color="black" marginH={8}>
+            {' '}
+            {formattedDate}
+          </Text>
+        </View>
+        <View style={styles.desc}>
+          <Image source={{ uri: item.image }} style={styles.imgcontainer} />
+          <View style={styles.desc2}>
+            <Text color="#007537">Order Successful</Text>
+            <View style={styles.desc3}>
+              <Text color="black">{item.name} |</Text>
+              <Text color="#7D7B7B">{item.category}</Text>
+            </View>
+            <Text color="black">
+              {4} {count === 1 ? 'item' : 'items'}
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
 
   function formatDateWithSuffix(date) {
     const daysOfWeek = [
@@ -63,145 +90,14 @@ const Notification = ({ route,navigation }) => {
   const date = new Date();
 
   const formattedDate = formatDateWithSuffix(date);
-  if (!count && !data && !submitData) {
-    return (
-      <View style={styles.root}>
-        <Text color="black" alignment="center" marginV={32}>
-          You don’t have any notification
-        </Text>
-      </View>
-    );
-  }
+
   return (
-    // <View style={styles.root}>
-    //   <View style={styles.root2}>
-    //     <View style={styles.container}>
-    //       <Text size={16} color="black" marginH={8}>
-    //         {' '}
-    //         {formattedDate}
-    //       </Text>
-    //     </View>
-    //     <View style={styles.desc}>
-    //       <Image
-    //         source={{ uri: data?.product?.image }}
-    //         style={styles.imgcontainer}
-    //       />
-    //       <View style={styles.desc2}>
-    //         <Text color="#007537">Order Successful</Text>
-    //         <View style={styles.desc3}>
-    //           <Text color="black">{data?.product?.name} |</Text>
-    //           <Text color="#7D7B7B">{data?.product?.category}</Text>
-    //         </View>
-    //         <Text color="black">
-    //           {count} {count === 1 ? 'item' : 'items'}
-    //         </Text>
-    //       </View>
-    //     </View>
-    //   </View>
-    // </View>
-    <View style={styles.root}> 
-      <ScrollView>
-        <Text color="#007537" alignment="center" marginV={10}>
-          Order Successful!
-        </Text>
-        <View style={styles.subform}>
-          <View style={styles.underline}>
-            <Text color="black" alignment="center">
-              Personal Information
-            </Text>
-          </View>
-          <View style={styles.review}>
-            <Text color="#7D7B7B" marginV={8}>
-              {submitData.name}
-            </Text>
-            <Text color="#7D7B7B" marginV={8}>
-              {submitData.email}
-            </Text>
-            <Text color="#7D7B7B" marginV={8}>
-              {submitData.address}
-            </Text>
-            <Text color="#7D7B7B" marginV={8}>
-              {submitData.phone}
-            </Text>
-          </View>
-
-          <View style={styles.underline}>
-            <Text color="black" alignment="center">
-              Delivery Method
-            </Text>
-          </View>
-          <View style={styles.review}>
-            <Text color="#7D7B7B" marginV={8}>
-              {submitData.selectedDelivery.label}
-            </Text>
-            <Text color="#7D7B7B" marginV={8}>
-              {submitData.selectedDelivery.placeholder}
-            </Text>
-          </View>
-
-          <View style={styles.underline}>
-            <Text color="black" alignment="center">
-              Payment Method
-            </Text>
-          </View>
-          <View style={styles.review}>
-            <Text color="#7D7B7B" marginV={8}>
-              {submitData.selectedPayment.label}
-            </Text>
-          </View>
-
-          <View style={styles.underline}>
-            <Text color="black">Your Item </Text>
-          </View>
-          <View style={styles.review}>
-            <View style={styles.desc}>
-              <Image
-                source={{ uri: data?.product?.image }}
-                style={styles.imgcontainer}
-              />
-              <View style={styles.desc2}>
-                <Text color="#007537">Order Successful</Text>
-                <View style={styles.desc3}>
-                  <Text color="black">{data?.product?.name} |</Text>
-                  <Text color="#7D7B7B">{data?.product?.category}</Text>
-                </View>
-                <Text color="black">
-                  {count} {count === 1 ? 'item' : 'items'}
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          
-        </View>
-    
-
-        <View style={styles.fixed}>
-          <View style={styles.pay}>
-            <Text color="black" marginV={10}>You paid</Text>
-            <Text color="black">${submitData.total}</Text>
-          </View>
-          <View style={styles.buttoncontainer}>
-            <TouchableOpacity style={styles.button}>
-              <Text
-                marginH={12}
-                size={16}
-                marginV={20}
-                alignment="center"
-                color="white"
-              >
-                Check out Planting Guide
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate('Guest',{
-              screen:'home'
-            })}>
-              <Text color='black'>Back to Homepage</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        </ScrollView>
-      
+    <View style={styles.root}>
+      <FlatList
+        data={product}
+        renderItem={renderItem}
+        keyExtractor={item => item._id}
+      />
     </View>
   );
 };
@@ -212,7 +108,6 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    
   },
   container: {
     borderBottomWidth: 0.5,
@@ -251,15 +146,7 @@ const styles = StyleSheet.create({
     paddingLeft: scale(30),
     paddingRight: scale(30),
   },
-    fixed: {
-    position: 'absolute',
-    bottom: -30,
-    left: 0,
-    right: 0,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: scale(15),
-  },
-    pay: {
+  pay: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: scale(15),
@@ -276,11 +163,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-   
   },
-  button2:{
-    borderBottomWidth:1,
-    borderColor:'black',
-    marginTop:verticalScale(15)
-  }
+  button2: {
+    borderBottomWidth: 1,
+    borderColor: 'black',
+    marginTop: verticalScale(15),
+  },
+
 });
