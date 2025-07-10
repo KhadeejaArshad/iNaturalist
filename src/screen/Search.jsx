@@ -1,4 +1,4 @@
-import { Image, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native'
+import { Image, TouchableOpacity, ScrollView, StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
 import Feather from '@react-native-vector-icons/feather';
 import { fonts } from '../utils/font';
@@ -49,7 +49,7 @@ const Search = ({navigation}) => {
         </>
       ) : (
         filteredProducts.map(item => (
-          <Pressable onPress={()=>navigation.navigate('Details',{id:item._id})} key={item._id} style={styles.resultItem}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Details',{id:item._id})} key={item._id} style={styles.resultItem}>
            
             <Image source={{uri:item.image}} style={styles.img}/>
           <View>
@@ -57,7 +57,7 @@ const Search = ({navigation}) => {
             <Text size={16} color='black'>${item.price}</Text>
              <Text size={16} color='black'>156 items Left</Text>
           </View>
-          </Pressable>
+          </TouchableOpacity>
         ))
       )}
     </ScrollView>

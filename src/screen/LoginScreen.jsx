@@ -1,4 +1,4 @@
-import { StyleSheet, View, TextInput, Pressable } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Text from '../UI/SpText';
 import { colors } from '../utils/color/color';
@@ -63,13 +63,13 @@ const handleChange = (key, value) => {
         />
       </View>
       <View style={styles.buttoncontainer}>
-        <Pressable style={styles.button} onPress={handleLogin}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text weight="bold" size={20} alignment="center" color="white">
             Login
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
-      <Pressable
+      <TouchableOpacity
         onPress={() => navigation.navigate('Login')}
         style={{
           alignSelf: 'center',
@@ -81,7 +81,7 @@ const handleChange = (key, value) => {
         <Text color={colors.dark} alignment="center" marginV={4}>
           NotNow
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };

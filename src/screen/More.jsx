@@ -1,4 +1,4 @@
-import { StyleSheet, View,FlatList,Pressable,Image } from 'react-native'
+import { StyleSheet, View,FlatList,TouchableOpacity,Image } from 'react-native'
 import Text from '../UI/SpText'
 import React from 'react'
 import Filterbutton from '../components/More/filterbutton'
@@ -10,7 +10,7 @@ const More = () => {
   
   const { data: products, status } = useSelector(state => state.product);
       const renderProductItem = ({ item: p }) => (
-    <Pressable
+    <TouchableOpacity
       style={styles.card}
       onPress={() => navigation.navigate('Details', { id: p._id })}
     >
@@ -20,7 +20,7 @@ const More = () => {
       <Text color="#007537" size={16}>
         ${p.price}
       </Text>
-    </Pressable>
+    </TouchableOpacity>
   );
   return (
     <>

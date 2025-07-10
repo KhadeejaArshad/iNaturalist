@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable, ImageBackground,SafeAreaView,ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground,SafeAreaView,ActivityIndicator } from 'react-native';
 import React, { useEffect } from 'react';
 import { useGetAllProductQuery, useDeleteProductMutation } from '../app/service/dummyData';
 import Feather from '@react-native-vector-icons/feather';
@@ -52,7 +52,7 @@ const AllProducts = ({ navigation }) => {
 
 
   const renderProductItem = ({ item: p }) => (
-    <Pressable
+    <TouchableOpacity
       key={p._id}
       style={styles.productContainer}
       onPress={() => navigation.navigate('SpecificProduct', { id: p._id })}
@@ -91,7 +91,7 @@ const AllProducts = ({ navigation }) => {
           </View>
         </View>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 
   return (

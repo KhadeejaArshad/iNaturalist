@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { Image, TouchableOpacity, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { useLayoutEffect } from 'react';
 import { useGetProductByIdQuery } from '../app/service/dummyData';
@@ -122,13 +122,13 @@ const Detail = ({ navigation, route }) => {
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
-            <Pressable disabled={count === 0} onPress={handleDescrease}>
+            <TouchableOpacity disabled={count === 0} onPress={handleDescrease}>
               <Feather
                 name="minus-square"
                 color={count === 0 ? '#7D7B7B' : 'black'}
                 size={24}
               />
-            </Pressable>
+            </TouchableOpacity>
 
             <Text color="black">{count}</Text>
             <Feather
@@ -146,7 +146,7 @@ const Detail = ({ navigation, route }) => {
         </View>
 
         <View style={styles.buttoncontainer}>
-          <Pressable
+          <TouchableOpacity
             style={[
               styles.button,
               { backgroundColor: isDisabled ? 'gray' : '#007537' },
@@ -162,7 +162,7 @@ const Detail = ({ navigation, route }) => {
             <Text weight="bold" size={16} alignment="center" color="white">
               Add to Cart
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </>

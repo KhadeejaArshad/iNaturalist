@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList, Pressable, Image } from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity, Image } from 'react-native';
 import Text from '../../UI/SpText';
 import React from 'react';
 import { useGetAllProductQuery } from '../../app/service/dummyData';
@@ -25,7 +25,7 @@ const List = () => {
   }
 
   const renderProductItem = ({ item: p }) => (
-    <Pressable
+    <TouchableOpacity
       style={styles.card}
       onPress={() => navigation.navigate('Details', { id: p._id })}
     >
@@ -35,7 +35,7 @@ const List = () => {
       <Text color="#007537" size={16}>
         ${p.price}
       </Text>
-    </Pressable>
+    </TouchableOpacity>
   );
   return (
     <View>
@@ -54,9 +54,9 @@ const List = () => {
       scrollEnabled={false}
       numColumns={2}
     />
-    <Pressable style={styles.button} onPress={()=>navigation.navigate('More')}>
+    <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('More')}>
         <Text  size={16} color='black'>See More</Text>
-    </Pressable>
+    </TouchableOpacity>
     </View>
   );
 };

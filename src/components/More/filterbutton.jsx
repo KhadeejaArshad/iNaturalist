@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View } from 'react-native'
+import { TouchableOpacity, StyleSheet, View } from 'react-native'
 import Text from '../../UI/SpText'
 import React,{useState} from 'react'
 import { moderateScale, verticalScale } from 'react-native-size-matters';
@@ -9,7 +9,7 @@ const Filterbutton = () => {
   return (
     <View style={styles.buttoncontainer}>
       {filterOptions.map(option => (
-        <Pressable
+        <TouchableOpacity
           key={option}
           onPress={() => setSelected(option)}
           style={[
@@ -20,7 +20,7 @@ const Filterbutton = () => {
           <Text color={selected === option ? 'white' : '#7D7B7B'}>
             {option}
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       ))}
     </View>
   );

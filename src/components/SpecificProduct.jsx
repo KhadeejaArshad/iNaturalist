@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  Pressable,
+  TouchableOpacity,
   ImageBackground,
   SafeAreaView,
   ActivityIndicator

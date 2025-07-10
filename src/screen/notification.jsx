@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, View,Pressable } from 'react-native';
+import { Image, ScrollView, StyleSheet, View,TouchableOpacity } from 'react-native';
 import Text from '../UI/SpText';
 import React from 'react';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
@@ -182,7 +182,7 @@ const Notification = ({ route,navigation }) => {
             <Text color="black">${submitData.total}</Text>
           </View>
           <View style={styles.buttoncontainer}>
-            <Pressable style={styles.button}>
+            <TouchableOpacity style={styles.button}>
               <Text
                 marginH={12}
                 size={16}
@@ -192,12 +192,12 @@ const Notification = ({ route,navigation }) => {
               >
                 Check out Planting Guide
               </Text>
-            </Pressable>
-            <Pressable style={styles.button2} onPress={()=>navigation.navigate('Guest',{
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate('Guest',{
               screen:'home'
             })}>
               <Text color='black'>Back to Homepage</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
         </ScrollView>

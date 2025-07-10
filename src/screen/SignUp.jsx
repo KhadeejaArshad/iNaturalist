@@ -1,4 +1,4 @@
-import { StyleSheet, View, TextInput, Pressable } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { colors } from '../utils/color/color';
 import Text from '../UI/SpText';
@@ -78,13 +78,13 @@ const SignUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.buttoncontainer}>
-        <Pressable style={styles.button} onPress={handleSignUp}>
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text weight="bold" size={20} alignment="center" color="white">
             SignUp
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
-      <Pressable
+      <TouchableOpacity
         onPress={() => navigation.navigate('Login')}
         style={{
           alignSelf: 'center',
@@ -96,7 +96,7 @@ const SignUp = ({ navigation }) => {
         <Text color={colors.dark} alignment="center" marginV={4}>
           NotNow
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };

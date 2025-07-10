@@ -1,4 +1,4 @@
-import { StyleSheet, View, TextInput, Pressable, Alert } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
 import Text from '../UI/SpText';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
@@ -102,7 +102,7 @@ const Edit = ({ navigation }) => {
               {/* You can add a Submit Button if needed */}
               {/* <Button onPress={handleSubmit} title="Submit" /> */}
               <View style={styles.buttoncontainer}>
-                <Pressable
+                <TouchableOpacity
                   onPress={handleSubmit}
                   style={[
                     styles.button,
@@ -120,7 +120,7 @@ const Edit = ({ navigation }) => {
                   >
                     Save
                   </Text>
-                </Pressable>
+                </TouchableOpacity>
               </View>
             </View>
           )}

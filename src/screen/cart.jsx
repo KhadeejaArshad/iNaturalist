@@ -1,4 +1,4 @@
-import { FlatList, Image, Pressable, StyleSheet, View } from 'react-native';
+import { FlatList, Image, TouchableOpacity, StyleSheet, View } from 'react-native';
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import Text from '../UI/SpText';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
@@ -35,7 +35,7 @@ const Cart = ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Pressable
+        <TouchableOpacity
           style={{ marginRight: 16 }}
           onPress={() => {
             refRBSheet.current?.open();
@@ -43,7 +43,7 @@ const Cart = ({ navigation }) => {
           }}
         >
           <Feather name="trash-2" size={24} color="black" />
-        </Pressable>
+        </TouchableOpacity>
       ),
     });
   }, [navigation]);
@@ -73,12 +73,12 @@ const Cart = ({ navigation }) => {
 
     return (
       <View style={styles.textcontainer}>
-        <Pressable
+        <TouchableOpacity
           style={[styles.checkbox, isPressed && { backgroundColor: 'black' }]}
           onPress={togglePressed}
         >
           {isPressed && <Feather name="check" size={24} color="white" />}
-        </Pressable>
+        </TouchableOpacity>
 
         <View style={styles.imagecontainer}>
           <Image source={{ uri: item.image }} style={styles.img} />
@@ -101,13 +101,13 @@ const Cart = ({ navigation }) => {
             <View
               style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}
             >
-              <Pressable disabled={itemCount <= 1} onPress={handleDecrease}>
+              <TouchableOpacity disabled={itemCount <= 1} onPress={handleDecrease}>
                 <Feather
                   name="minus-square"
                   color={itemCount <= 1 ? '#7D7B7B' : 'black'}
                   size={24}
                 />
-              </Pressable>
+              </TouchableOpacity>
 
               <Text color="black">{itemCount}</Text>
 
@@ -119,12 +119,12 @@ const Cart = ({ navigation }) => {
               />
             </View>
 
-            <Pressable
+            <TouchableOpacity
               // onPress={() => dispatch(removefrom(item._id))}
               style={styles.underline}
             >
               <Text color="black">Remove</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -150,7 +150,7 @@ const Cart = ({ navigation }) => {
           </View>
 
           <View style={styles.buttoncontainer}>
-            <Pressable
+            <TouchableOpacity
               style={styles.button}
               onPress={() =>
                 navigation.navigate('Checkout', {
@@ -167,7 +167,7 @@ const Cart = ({ navigation }) => {
               <View style={{ marginHorizontal: scale(12) }}>
                 <Feather name="chevron-right" size={24} color="white" />
               </View>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       ) : (
@@ -206,20 +206,20 @@ const Cart = ({ navigation }) => {
           </Text>
           <Text color="#7D7B7B">This cannot be undone</Text>
           <View style={styles.buttoncontainer2}>
-            <Pressable style={styles.button2}>
+            <TouchableOpacity style={styles.button2}>
               <Text marginH={12} size={16} alignment="center" color="white">
                 Yes
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
-          <Pressable
+          <TouchableOpacity
             style={styles.underline}
             onPress={() => refRBSheet.current?.close()}
           >
             <Text size={16} color="black">
               Cancel
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </RBSheet>
     </View>

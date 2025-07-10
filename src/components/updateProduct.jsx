@@ -4,7 +4,7 @@ import {
   TextInput,
   ScrollView,
   StyleSheet,
-  Pressable,
+  TouchableOpacity,
   ImageBackground,
 } from 'react-native';
 import React from 'react';
@@ -118,7 +118,7 @@ const UpdateProduct = ({ route, navigation }) => {
       >
         <View style={{ padding: 20 }}>
           <Text  weight='bold' size={24} color={colors.dark} alignment='center' marginV={4}>Want to Change Something?</Text>
-           <Pressable
+           <TouchableOpacity
             onPress={handleImagePick}
             style={{ alignItems: 'center', marginVertical: 10 }}
           >
@@ -135,7 +135,7 @@ const UpdateProduct = ({ route, navigation }) => {
             ) : (
               <Text  weight='bold' size={20} alignment='center' marginV={15}>Pick an Image</Text>
             )}
-          </Pressable>
+          </TouchableOpacity>
 
           <TextInput
             style={styles.input}
@@ -205,13 +205,13 @@ const UpdateProduct = ({ route, navigation }) => {
               </Picker>
             </View>
           </View>
-          <Pressable
+          <TouchableOpacity
             style={styles.button}
             disabled={isLoading}
             onPress={handleUpdateProduct}
           >
             <Text  weight='bold' size={20} alignment='center' marginV={15}>Change It</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </ScrollView>

@@ -2,7 +2,7 @@ import {
   StyleSheet,
   View,
   TextInput,
-  Pressable,
+  TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
@@ -157,7 +157,7 @@ const Checkout = ({ route }) => {
                   </View>
 
                   {deliveryOptions.map(option => (
-                    <Pressable
+                    <TouchableOpacity
                       key={option?.id}
                       style={styles.container}
                       onPress={() => setSelectedDelivery(option)}
@@ -185,7 +185,7 @@ const Checkout = ({ route }) => {
                         placeholder={option.placeholder}
                         editable={false}
                       />
-                    </Pressable>
+                    </TouchableOpacity>
                   ))}
                 </View>
 
@@ -196,7 +196,7 @@ const Checkout = ({ route }) => {
                     </View>
 
                     {paymentOptions.map(option => (
-                      <Pressable
+                      <TouchableOpacity
                         key={option?.id}
                         style={[
                           styles.subunderline,
@@ -220,7 +220,7 @@ const Checkout = ({ route }) => {
                         {selectedPayment?.id === option?.id && (
                           <Feather name="check" size={20} color="#007537" />
                         )}
-                      </Pressable>
+                      </TouchableOpacity>
                     ))}
                   </View>
                 ) : null}
@@ -276,9 +276,9 @@ const Checkout = ({ route }) => {
                 <View style={styles.subform}>
                   <View style={styles.underline2}>
                     <Text color="black">Personal Information</Text>
-                    <Pressable onPress={() => handleUpdate()}>
+                    <TouchableOpacity onPress={() => handleUpdate()}>
                       <Text color="#7D7B7B">edit</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                   </View>
                   <View style={styles.review}>
                     <Text color="#7D7B7B" marginV={8}>
@@ -299,9 +299,9 @@ const Checkout = ({ route }) => {
                 <View style={styles.subform}>
                   <View style={styles.underline2}>
                     <Text color="black">Delivery Method</Text>
-                    <Pressable>
+                    <TouchableOpacity>
                       <Text color="#7D7B7B">edit</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                   </View>
                   <View style={styles.review}>
                     <Text color="#7D7B7B" marginV={8}>
@@ -339,7 +339,7 @@ const Checkout = ({ route }) => {
               </Text>
             </View>
             <View style={styles.buttoncontainer}>
-              <Pressable
+              <TouchableOpacity
                 style={[
                   styles.button,
                   !(isValid && dirty) && { backgroundColor: '#ABABAB' },
@@ -356,7 +356,7 @@ const Checkout = ({ route }) => {
                 >
                   CONTINUE
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
           </View>
           <RBSheet
@@ -391,7 +391,7 @@ const Checkout = ({ route }) => {
               </Text>
 
               <View style={styles.buttoncontainer2}>
-                <Pressable
+                <TouchableOpacity
                   style={styles.button2}
                   onPress={() => {
                     navigation.navigate('Guest', {
@@ -403,16 +403,16 @@ const Checkout = ({ route }) => {
                   <Text marginH={12} size={16} alignment="center" color="white">
                     Yes
                   </Text>
-                </Pressable>
+                </TouchableOpacity>
               </View>
-              <Pressable
+              <TouchableOpacity
                 style={styles.underline}
                 onPress={() => refRBSheet.current?.close()}
               >
                 <Text size={16} color="black">
                   Cancel
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
           </RBSheet>
         </View>

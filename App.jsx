@@ -29,6 +29,9 @@ import Checkout from './src/screen/Checkout';
 import Notification from './src/screen/notification';
 import Profile from './src/screen/Profile';
 import Edit from './src/screen/Edit';
+import PlantingGuide from './src/screen/PlantingGuide';
+import Specific from './src/screen/Specific';
+import FAQ from './src/screen/FAQ';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -197,8 +200,39 @@ const ProfileStack=()=>{
          headerTitleAlign:'center',
          headerShadowVisible:false,
       }}/>
+          <Stack.Screen name='PlantingGuide'
+      component={PlantingGuideStack}
+         options={{
+          headerShown:false}}
+          />
+           <Stack.Screen name='FAQ'
+      component={FAQ}
+         options={{
+         headerTitle:'FAQS',
+         headerTitleAlign:'center',
+         headerShadowVisible:false,
+      }}/>
     </Stack.Navigator>
   )
+}
+const PlantingGuideStack=()=>{
+ return(
+   <Stack.Navigator>
+    <Stack.Screen name='PlantingGuide'
+       component={PlantingGuide}
+         options={{
+         headerTitle:'PLANTING GUIDE',
+         headerTitleAlign:'center',
+         headerShadowVisible:false,
+      }}/>
+       <Stack.Screen name='Specific'
+       component={Specific}
+         options={{
+         headerTitleAlign:'center',
+         headerShadowVisible:false,
+      }}/>
+  </Stack.Navigator>
+ )
 }
 
 const AuthStack = () => {

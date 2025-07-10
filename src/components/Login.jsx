@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet, View, Pressable } from 'react-native';
+import { ImageBackground, StyleSheet, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { images } from '../utils/Images/images';
 import Text from '../UI/SpText';
@@ -26,31 +26,31 @@ const Login = ({ navigation }) => {
           </View>
 
           <View style={{ marginHorizontal: 15 }}>
-            <Pressable
+            <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate('LoginScreen')}
             >
               <Text weight="bold" size={20} alignment="center" color="white">
                 Login
               </Text>
-            </Pressable>
+            </TouchableOpacity>
 
-            <Pressable
+            <TouchableOpacity
               style={styles.button2}
               onPress={() => navigation.navigate('SignUp')}
             >
               <Text weight="bold" size={20} alignment="center">
                 Sign Up
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.button3}>
-            <Pressable onPress={() => navigation.navigate('Guest')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Guest')}>
               <Text size={20} marginV={8} alignment="center">
                 Guest
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </ImageBackground>

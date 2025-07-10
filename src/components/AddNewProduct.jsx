@@ -5,7 +5,7 @@ import {
   TextInput,
   ScrollView,
   StyleSheet,
-  Pressable,
+  TouchableOpacity,
   ImageBackground,
   Image,
   SafeAreaView,
@@ -155,7 +155,7 @@ const AddNewProduct = ({ navigation }) => {
       >
         <View style={{ padding: 20 }}>
           <Text style={styles.title} weight='bold' size={24} color={colors.dark} alignment='center' marginV={4}>Add a plant to your wishList</Text>
-           <Pressable onPress={handleImagePick} style={styles.imagePickerButton}>
+           <TouchableOpacity onPress={handleImagePick} style={styles.imagePickerButton}>
             {form.image ? (
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Image
@@ -171,7 +171,7 @@ const AddNewProduct = ({ navigation }) => {
             ) : (
               <Text weight='bold' size={20} alignment='center' marginV={15}>Pick an Image</Text>
             )}
-          </Pressable>
+          </TouchableOpacity>
 
           <TextInput
             style={styles.input}
@@ -242,13 +242,13 @@ const AddNewProduct = ({ navigation }) => {
               </Picker>
             </View>
           </View>
-          <Pressable
+          <TouchableOpacity
             style={styles.button}
             disabled={isLoading}
             onPress={handleAddProduct}
           >
             <Text weight='bold' size={20} alignment='center' marginV={15}>Add A PLant</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </ScrollView>
