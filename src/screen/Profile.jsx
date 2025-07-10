@@ -3,7 +3,7 @@ import Text from '../UI/SpText'
 import React from 'react'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   return (
     <View style={styles.root}>
     <View style={styles.menu}>
@@ -11,7 +11,7 @@ const Profile = () => {
         <Text color='#7F7F7F' size={16} marginV={6}>General</Text>
         
      </View>
-    <Pressable style={styles.option}>
+    <Pressable style={styles.option} onPress={()=>navigation.navigate('Edit')}>
         <Text color='black' size={16}>Edit Information</Text>
     </Pressable>
        <Pressable style={styles.option}>

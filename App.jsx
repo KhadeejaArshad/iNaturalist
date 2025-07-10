@@ -28,6 +28,7 @@ import More from './src/screen/More';
 import Checkout from './src/screen/Checkout';
 import Notification from './src/screen/notification';
 import Profile from './src/screen/Profile';
+import Edit from './src/screen/Edit';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -153,11 +154,9 @@ const BottomTabNavigation = ({ navigation }) => {
       />
       <BottomTab.Screen
         name="profile"
-        component={Profile}
+        component={ProfileStack}
         options={{
-         headerTitle:'PROFILE',
-         headerTitleAlign:'center',
-         headerShadowVisible:false,
+         headerShown:false,
 
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: 'center', marginTop: 4 }}>
@@ -180,6 +179,27 @@ const BottomTabNavigation = ({ navigation }) => {
     </BottomTab.Navigator>
   );
 };
+
+const ProfileStack=()=>{
+  return(
+    <Stack.Navigator>
+       <Stack.Screen name='profile'
+      component={Profile}
+      options={{
+         headerTitle:'PROFILE',
+         headerTitleAlign:'center',
+         headerShadowVisible:false,
+      }}/>
+      <Stack.Screen name='Edit'
+      component={Edit}
+         options={{
+         headerTitle:'EDIT INFORMATION',
+         headerTitleAlign:'center',
+         headerShadowVisible:false,
+      }}/>
+    </Stack.Navigator>
+  )
+}
 
 const AuthStack = () => {
   return (

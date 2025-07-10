@@ -189,7 +189,7 @@ const Checkout = ({ route }) => {
                   ))}
                 </View>
 
-                {selectedDelivery?.id !== 'cod' ? (
+                {selectedDelivery?.id === 'quick' ? (
                   <View style={styles.subform}>
                     <View style={styles.underline}>
                       <Text color="black">Payment Method</Text>
