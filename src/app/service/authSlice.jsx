@@ -30,7 +30,7 @@ const authSlice = createSlice({
          (state, { payload }) => {
         
         state.token = payload?.token
-        state.useName=payload?.data?.name
+        state.userName=payload?.data?.name
         state.status=STATUSES.SUCCESS
        
       },
