@@ -12,7 +12,7 @@ const authSlice = createSlice({
     
     status: "idle",
     error: null,
-    useName:null,
+    userName:null,
     token:null
   },
   reducers: {
